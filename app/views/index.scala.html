@@ -7,15 +7,30 @@
 	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	
-	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/index.css")">
+	<script src="@routes.Assets.at("javascripts/page.js")"></script>
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/page.css")">
 } {
 
-	<h2>test</h2>
+	<div class="page" style="background-color: red">
+		<h2>test</h2>
+	</div>
 
 } {
 
 	<script type="text/javascript">
+		var plst = new pages();
 
+		function setup() {
+			plst.calledWhenResize();
+		};
+	
+		$(function(){
+			setup();
+		});
+	
+		$(window).resize(function() {
+			setup();
+		});
 	</script>
 }
 

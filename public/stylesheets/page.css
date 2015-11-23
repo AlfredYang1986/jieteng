@@ -1,0 +1,158 @@
+/* Col Width
+-----------------------------------*/
+
+.col-1 {
+	width: 8.33%;
+}
+
+.col-2 {
+	width: 16.67%;
+}
+
+.col-3 {
+	width: 25%;
+}
+
+.col-4 {
+	width: 33.33%;
+}
+
+.col-5 {
+	width: 41.67%;
+}
+
+.col-6 {
+	width: 50%;
+}
+
+.col-7 {
+	width: 58.33%;
+}
+
+.col-8 {
+	width: 66.67%;
+}
+
+.col-9 {
+	width: 75%;
+}
+
+.col-10 {
+	width: 83.33%;
+}
+
+.col-11 {
+	width: 91.67%;
+}
+
+.col-12 {
+	width: 100%;
+}
+
+/* Col Offset for Margin
+-------------------------------------*/
+
+.col-offset-1 {
+	maring-left: 8.33%;
+}
+
+.col-offset-2 {
+	maring-left: 16.67%;
+}
+
+.col-offset-3 {
+	maring-left: 25%;
+}
+
+.col-offset-4 {
+	maring-left: 33.33%;
+}
+
+.col-offset-5 {
+	maring-left: 41.67%;
+}
+
+.col-offset-6 {
+	maring-left: 50%;
+}
+
+
+.col-offset-7 {
+	maring-left: 58.33%;
+}
+
+
+.col-offset-8 {
+	maring-left: 66.67%;
+}
+
+.col-offset-8 {
+	maring-left: 66.67%;
+}
+
+.col-offset-9 {
+	maring-left: 75%;
+}
+
+.col-offset-10 {
+	maring-left: 83.33%;
+}
+
+.col-offset-11 {
+	maring-left: 91.67%;
+}
+
+.col-offset-11 {
+	maring-left: 100%;
+}
+
+/* row for height
+---------------------------------------*/
+
+.row-1 {
+	height: 8.33%;
+}
+
+.row-2 {
+	height: 16.67%;
+}
+
+.row-3 {
+	height: 25%;
+}
+
+.row-4 {
+	height: 33.33%;
+}
+
+.row-5 {
+	height: 41.67%;
+}
+
+.row-6 {
+	height: 50%;
+}
+
+.row-7 {
+	height: 58.33%;
+}
+
+.row-8 {
+	height: 66.67%;
+}
+
+.row-9 {
+	height: 75%;
+}
+
+.row-10 {
+	height: 83.33%;
+}
+
+.row-11 {
+	height: 91.67%;
+}
+
+.row-12 {
+	height: 100%;
+}
