@@ -6,11 +6,6 @@ import play.api.mvc._
 object Application extends Controller {
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.index("Change page"))
   }
-
-  def pageMovingTest = Action {
-	  Ok(views.html.pageMovingTest("Alfred Test"))
-  }
-  
 }
