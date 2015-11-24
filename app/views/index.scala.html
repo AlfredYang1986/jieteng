@@ -6,21 +6,24 @@
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery.touchswipe/1.6.12/jquery.touchSwipe.js"></script>
 	
 	<script src="@routes.Assets.at("javascripts/page.js")"></script>
 	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/page.css")">
 } {
 
-	<div class="page" style="background-color: red">
-		<h2>test</h2>
+	<div class="page" style="background-color: red; font-size: 100px">
+		page 1
 	</div>
 
+	<div class="page" style="background-color: red; font-size: 100px">
+		page 2
+	</div>
 } {
 
 	<script type="text/javascript">
-		var plst = new pages();
-
 		function setup() {
+			var plst = new pages();
 			plst.calledWhenResize();
 		};
 	
