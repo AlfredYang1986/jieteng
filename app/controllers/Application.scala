@@ -16,4 +16,9 @@ object Application extends Controller {
   def dazhuPage = Action {
     Ok(views.html.dazhuPage("page 4"))
   }
+  
+  def endPage = Action {
+    Ok(views.html.endPage("page 5"))
+  }
+
 }

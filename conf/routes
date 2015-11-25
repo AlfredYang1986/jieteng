@@ -6,6 +6,7 @@
 GET     /                           controllers.Application.index
 GET		/consultcatePage			controllers.Application.consultcatePage
 GET		/dazhuPage					controllers.Application.dazhuPage
+GET		/endPage					controllers.Application.endPage
 
 
 # Map static resources from the /public folder to the /assets URL path

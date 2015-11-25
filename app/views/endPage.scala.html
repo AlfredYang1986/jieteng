@@ -1,0 +1,54 @@
+@(message: String)
+
+@main(message) {
+	
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery.touchswipe/1.6.12/jquery.touchSwipe.js"></script>
+	
+	<script src="@routes.Assets.at("javascripts/page.js")"></script>
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/page.css")">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/endPage.css")">
+} {
+
+	<div class="page end-page-background">
+	
+		<div class="row">
+			<img class="center-block img-responsive" src="/assets/images/jieteng-logo.png" alt="JieTengLogo" height="700" width="700">
+		</div>
+		
+		<div class="row">
+			<p class="text-center end-page-content spacer-content">感谢您对结藤文化的信任</p>
+		</div>
+				
+		<div class="row">
+			<img class="center-block img-responsive spacer" src="/assets/images/end-page-content-1.png" alt="home page title" height="150" width="500">
+		</div>
+		
+		<div class="row">
+			<img class="center-block img-responsive spacer-slogan" src="/assets/images/end-page-content-2.png" alt="home page content" height="600" width="600">
+		</div>		
+
+	</div>
+	
+	</div>
+} {
+
+	<script type="text/javascript">
+		function setup() {
+			var plst = new pages();
+			plst.calledWhenResize();
+		};
+	
+		$(function(){
+			setup();
+		});
+	
+		$(window).resize(function() {
+			setup();
+		});
+	</script>
+}
+

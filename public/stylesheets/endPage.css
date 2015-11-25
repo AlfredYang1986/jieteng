@@ -1,0 +1,22 @@
+.end-page-background {
+	background-image: url(/assets/images/home-page-background.png);
+    background-repeat: repeat;	
+}
+
+.spacer-content {
+	margin-top: 200px;
+}
+
+
+.spacer {
+	margin-top: 300px;
+}
+
+.spacer-slogan {
+	margin-top: 50px;
+}
+
+.end-page-content {
+	font-size:50pt;
+	color: #666362;
+}
