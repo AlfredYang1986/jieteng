@@ -1,0 +1,66 @@
+.consulting-page-background {
+	background-image: url(/assets/images/consulting-page-background.png);
+    background-repeat: repeat;	
+}
+
+.logo-margin {
+	margin-top: 100px;
+}
+
+.title-margin {
+	margin-top: 200px;	
+}
+
+.seprate {
+	width: 300px;
+}
+
+.category {
+	font-size: 50pt;
+	color: green;
+}
+
+.dazhu {
+	font-size: 40pt;
+	color: green;
+}
+
+.form-margin {
+	margin-top: 100px;
+}
+
+.round {
+	font-size: 18pt;
+	color: dark;
+	background-color: green;
+	background-image: none;
+}
+
+.form-margin-left {
+	margin-left: 20px;
+}
+
+.form-margin-top {
+	margin-top: 60px;
+}
+
+.label-font{
+	color: lightgray;
+	font-size: 20pt;
+}
+
+.text-round {
+	-moz-border-radius: 28px;      /* Gecko browsers */
+    -webkit-border-radius: 28px;   /* Webkit browsers */
+    border-radius: 30px;            /* W3C syntax */
+    border: 2px solid green;
+}
+
+.btn-setting {
+  border-radius: 24px;
+  border: 2px solid green;
+  color: gray;
+  background: green;
+  font-size: 20pt;
+}
+

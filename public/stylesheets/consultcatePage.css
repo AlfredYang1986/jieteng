@@ -10,8 +10,8 @@ margin-top: 100px;
 .round {
   border-radius: 24px;
   border: 2px solid #11c924;
-  color: #11c924;
-  background: none;
+  color: #11c924 ;
+  background-color: none;
   width: 500px;
   font-size: 41pt;
 }

@@ -20,5 +20,8 @@ object Application extends Controller {
   def endPage = Action {
     Ok(views.html.endPage("page 5"))
   }
-
+  
+  def consultingPage = Action {
+    Ok(views.html.consultingPage("page 6"))
+  }
 }
