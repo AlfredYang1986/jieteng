@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                           controllers.Application.index
+GET		/consultcatePage			controllers.Application.consultcatePage
 GET		/dazhuPage					controllers.Application.dazhuPage
 
 

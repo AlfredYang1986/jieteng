@@ -1,0 +1,12 @@
+.home-page-background {
+	background-image: url(/assets/images/home-page-background.png);
+    background-repeat: repeat;	
+}
+
+.spacer {
+margin-top: 40px;
+}
+
+.spacer-content {
+	margin-top: 100px;
+}
