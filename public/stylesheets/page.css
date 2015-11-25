@@ -73,57 +73,57 @@ margin-top: 40px;
 -------------------------------------*/
 
 .col-offset-1 {
-	maring-left: 8.33%;
+	margin-left: 8.33%;
 }
 
 .col-offset-2 {
-	maring-left: 16.67%;
+	margin-left: 16.67%;
 }
 
 .col-offset-3 {
-	maring-left: 25%;
+	margin-left: 25%;
 }
 
 .col-offset-4 {
-	maring-left: 33.33%;
+	margin-left: 33.33%;
 }
 
 .col-offset-5 {
-	maring-left: 41.67%;
+	margin-left: 41.67%;
 }
 
 .col-offset-6 {
-	maring-left: 50%;
+	margin-left: 50%;
 }
 
 
 .col-offset-7 {
-	maring-left: 58.33%;
+	margin-left: 58.33%;
 }
 
 
 .col-offset-8 {
-	maring-left: 66.67%;
+	margin-left: 66.67%;
 }
 
 .col-offset-8 {
-	maring-left: 66.67%;
+	margin-left: 66.67%;
 }
 
 .col-offset-9 {
-	maring-left: 75%;
+	margin-left: 75%;
 }
 
 .col-offset-10 {
-	maring-left: 83.33%;
+	margin-left: 83.33%;
 }
 
 .col-offset-11 {
-	maring-left: 91.67%;
+	margin-left: 91.67%;
 }
 
 .col-offset-11 {
-	maring-left: 100%;
+	margin-left: 100%;
 }
 
 /* row for height
@@ -175,4 +175,11 @@ margin-top: 40px;
 
 .row-12 {
 	height: 100%;
+}
+
+/* row for height offset
+---------------------------------------*/
+
+.row-offset-1 {
+	padding-top: 8.33%;
 }

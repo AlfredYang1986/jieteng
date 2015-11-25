@@ -1,0 +1,30 @@
+.dazhu-page-background {
+	background-image: url(/assets/images/dazhu-page-background.png);
+    background-repeat: repeat;	
+}
+
+.dazhu-name {
+	color: green;
+	font-size: 32pt;
+}
+
+.dazhu-name-sub {
+	color: lightgray;
+	font-size: 32pt;
+}
+
+.dazhu-name-sub-btn {
+	font-size: 18pt;
+	color: dark;
+	background-color: green;
+	background-image: none;
+	
+	-moz-border-radius: 28px;      /* Gecko browsers */
+    -webkit-border-radius: 28px;   /* Webkit browsers */
+    border-radius: 28px;            /* W3C syntax */
+}
+
+.dazhu-description {
+	font-size: 18pt;
+	color: lightgray;
+}
