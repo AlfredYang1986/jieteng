@@ -1,0 +1,31 @@
+.service-protocol-background {
+	background-image: url(/assets/images/consultcate-page-background.png);
+    background-repeat: repeat;	
+}
+
+.service-protocol-title-margin {
+	margin-top: 10%;
+}
+
+.service-protocol-title {
+	font-size: 32pt;
+	color: green;
+	font-weight: bold;
+}
+
+.service-protocol-content {
+	width: 100%;
+	height: 60%;
+}
+
+.service-protocol-bottom-btn {
+	font-size: 24pt;
+	background-color: green;
+	background-image: none;
+	color: lightgray;	
+	
+	-moz-border-radius: 28px;      /* Gecko browsers */
+    -webkit-border-radius: 28px;   /* Webkit browsers */
+    border-radius: 28px;            /* W3C syntax */
+    min-width: 200px;
+}

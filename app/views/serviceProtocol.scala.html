@@ -1,0 +1,55 @@
+@(message: String)
+
+@main(message) {
+	
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery.touchswipe/1.6.12/jquery.touchSwipe.js"></script>
+	
+	<script src="@routes.Assets.at("javascripts/page.js")"></script>
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/page.css")">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/serviceProtocol.css")">
+} {
+
+	<div class="page service-protocol-background">
+		
+		<div class = "row">
+			<div class="col-xs-6 col-md-6">
+			<img class="img-responsive" src="/assets/images/jieteng-logo.png" alt="JieTengLogo" >
+			</div>
+			<div class="col-xs-6 col-md-6 service-protocol-title-margin">
+				<p class="service-protocol-title">结藤社</p>	
+				<p class="service-protocol-title">求助者服务协议</p>	
+			</div>
+		</div>
+
+		<div class="row service-protocol-content">
+		</div>
+
+		<table class="col-10 col-offset-1 row-offset-1"  border="0" cellspacing="0" cellpadding="2" bordercolor="#009900" >
+			<tr>
+				<td colspan="50%" style="float: left"><button type="button" class="btn btn-primary service-protocol-bottom-btn"> 同意 </button></td>
+				<td colspan="50%" style="float: right"><button type="button" class="btn btn-primary service-protocol-bottom-btn">不同意</button></td>
+			</tr>
+		</table>	
+	</div>
+} {
+
+	<script type="text/javascript">
+		function setup() {
+			var plst = new pages();
+			plst.calledWhenResize();
+		};
+	
+		$(function(){
+			setup();
+		});
+	
+		$(window).resize(function() {
+			setup();
+		});
+	</script>
+}
+

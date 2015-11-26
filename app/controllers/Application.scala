@@ -8,6 +8,10 @@ object Application extends Controller {
   def index = Action {
     Ok(views.html.index("Change page"))
   }
+ 
+  def serviceProtocol = Action {
+   Ok(views.html.serviceProtocol("page 2"))
+  }
   
   def consultcatePage = Action {
    Ok(views.html.consultcatePage("page 3"))
