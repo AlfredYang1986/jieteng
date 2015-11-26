@@ -28,4 +28,8 @@ object Application extends Controller {
   def consultingPage = Action {
     Ok(views.html.consultingPage("page 6"))
   }
+
+  def progress = Action {
+   Ok(views.html.progress("page 7"))
+  }
 }

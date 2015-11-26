@@ -1,0 +1,46 @@
+.progress-background {
+	background-image: url(/assets/images/progress-background.png);
+    background-repeat: repeat;	
+}
+
+.progress-title-text-margin-top {
+	margin-top: 10%;
+}
+
+.progress-title {
+	font-size: 50pt;
+	padding: 20px 70px;
+	color: black;
+	
+	-moz-border-radius: 60px;      /* Gecko browsers */
+    -webkit-border-radius: 60px;   /* Webkit browsers */
+    border-radius: 60px;            /* W3C syntax */
+    
+    border: 1px solid black;
+    text-align: center;
+}
+
+.progress-text {
+    text-align: left;
+	font-size: 45pt;
+}
+
+.progress-footer-margin-top {
+	margin-top: 40%;
+} 
+
+.progress-footer-title-cn {
+	color: green;
+	font-size: 40pt;
+	font-weight: bold;
+	width: 100%;
+	text-align: center;
+}
+
+.progress-footer-title-en {
+	color: green;
+	font-size: 32pt;
+	font-weight: bold;
+	width: 100%;
+	text-align: center;
+}
