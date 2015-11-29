@@ -65,11 +65,10 @@
 		<table class="col-10 col-offset-1 row-offset-1"  border="0" cellspacing="0" cellpadding="2" bordercolor="#009900" >
 			@for((iter, index) <- iter_page.zipWithIndex) {
 				<tr>
-					<td colspan="3" style="padding-top: 8%" class="dazhu-row" data-index=@index>
+					<td colspan="3" style="padding-top: 12%" class="dazhu-row" data-index=@index>
 						<span>
 						<b><span class="dazhu-name">@{(iter \ "name").asOpt[String].get}</span> <span class="dazhu-name-sub">| @{(iter \ "type").asOpt[String].get} </span><button type="button" class="btn btn-sm btn-primary dazhu-name-sub-btn">点我咨询</button></b><br>
-						<p class="dazhu-description">答主介绍：@{(iter \ "exp").asOpt[String].get.substring(0,6)}</p>
-						<p class="dazhu-description">@{(iter \ "exp").asOpt[String].get.substring(6)}</p>
+						<p class="dazhu-description">答主介绍：@{(iter \ "exp").asOpt[String].get}</p>
 						</span>
 					</td>
 				</tr>

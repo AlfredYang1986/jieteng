@@ -13,7 +13,7 @@ object JieTengService extends Controller {
 		val data = Json.parse(Source.fromFile("public/data/abc-min.json").bufferedReader.readLine)
 		var lst = (data \ "data").asOpt[List[JsValue]].get
 
-		val i = lst.length / 6 + 1
+		val i = lst.length / 6
 		var rel : List[List[JsValue]] = Nil
 		for (index <- 0 to i) {
 		  val (a, b) = lst.splitAt(6)

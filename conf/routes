@@ -3,12 +3,8 @@
 # ~~~~
 
 # Home page
-# GET     /                           controllers.Application.index
 GET     /                           controllers.JieTengService.consultation
 GET     /serviceProtocol            controllers.JieTengService.serviceProtocol
-GET		/consultcatePage			controllers.JieTengService.consultcatePage
-GET		/dazhuPage					controllers.JieTengService.dazhuPage
-GET		/endPage					controllers.JieTengService.endPage
 GET     /consultingPage				controllers.JieTengService.consultingPage
 GET     /progress					controllers.JieTengService.progress
 
