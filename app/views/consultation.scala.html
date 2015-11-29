@@ -1,0 +1,118 @@
+@(message : String)(lst : List[List[play.api.libs.json.JsValue]])
+
+@main(message) {
+	
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery.touchswipe/1.6.12/jquery.touchSwipe.js"></script>
+	
+	<script src="@routes.Assets.at("javascripts/page.js")"></script>
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/page.css")">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/homePage.css")">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/consultcatePage.css")">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/dazhuPage.css")">
+	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/endPage.css")">
+} {
+ 
+ 	<!-- page 1: home page -->
+	<div class="page home-page-background" >
+		<div class="row">
+			<img class="center-block img-responsive spacer" src="/assets/images/jieteng-logo.png" alt="JieTengLogo" height="700" width="700">
+		</div>
+		<div class="row">
+			<img class="center-block img-responsive spacer" src="/assets/images/home-page-title.png" alt="home page title" height="150" width="500">
+		</div>
+		<div class="row">
+			<img class="center-block img-responsive spacer-content" src="/assets/images/home-page-content.png" alt="home page content" height="600" width="600">
+		</div>
+	</div>
+
+	<!-- page 2: catelogy page -->
+	<div class="page consultcate-page-background">
+		<div class = "row">
+			<div class="col-xs-6 col-md-6">
+			<img class="img-responsive" src="/assets/images/jieteng-logo.png" alt="JieTengLogo" >
+			</div>
+			<div class="col-xs-6 col-md-6">
+			<img class="img-responsive spacer" src="/assets/images/consult-category-title.png" alt="catetitle">		
+			</div>
+		</div>
+		<div class = "row">
+			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultcate-spacer" data-index="3">工作咨询</button>
+		</div>
+		<div class = "row">
+			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">考证咨询</button>
+		</div>
+		<div class = "row">
+			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">学习咨询</button>
+		</div>
+		<div class = "row">
+			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">旅游咨询</button>
+		</div>
+		<div class = "row">
+			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">签证咨询</button>
+		</div>
+		<div class = "row">
+			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">海淘咨询</button>
+		</div>			
+	</div>
+	
+	<!-- page 3: dazhupage -->
+	@for(iter_page <- lst) {
+	<div class="page dazhu-page-background">
+		<table class="col-10 col-offset-1 row-offset-1"  border="0" cellspacing="0" cellpadding="2" bordercolor="#009900" >
+			@for((iter, index) <- iter_page.zipWithIndex) {
+				<tr>
+					<td colspan="3" style="padding-top: 8%" class="dazhu-row" data-index=@index>
+						<span>
+						<b><span class="dazhu-name">@{(iter \ "name").asOpt[String].get}</span> <span class="dazhu-name-sub">| @{(iter \ "type").asOpt[String].get} </span><button type="button" class="btn btn-sm btn-primary dazhu-name-sub-btn">点我咨询</button></b><br>
+						<p class="dazhu-description">答主介绍：@{(iter \ "exp").asOpt[String].get.substring(0,6)}</p>
+						<p class="dazhu-description">@{(iter \ "exp").asOpt[String].get.substring(6)}</p>
+						</span>
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+	}
+ 
+ 	<!-- page 4: end page -->
+	<div class="page end-page-background">
+		<div class="row">
+			<img class="center-block img-responsive" src="/assets/images/jieteng-logo.png" alt="JieTengLogo" height="700" width="700">
+		</div>
+		<div class="row">
+			<p class="text-center end-page-content end-page-spacer-content">感谢您对结藤文化的信任</p>
+		</div>
+		<div class="row">
+			<img class="center-block img-responsive end-page-spacer" src="/assets/images/end-page-content-1.png" alt="home page title" height="150" width="500">
+		</div>
+		<div class="row">
+			<img class="center-block img-responsive end-page-spacer-slogan" src="/assets/images/end-page-content-2.png" alt="home page content" height="600" width="600">
+		</div>		
+	</div>
+} {
+
+	<script type="text/javascript">
+		function setup() {
+			var plst = new pages();
+			plst.calledWhenResize();
+		};
+	
+		$(function(){
+			setup();
+		
+			$(".dazhu-row").each(function(){
+				if ($(this).data("index") % 2 == 1) {
+					$(this).addClass("dazhu-right")
+				}
+			});
+		});
+	
+		$(window).resize(function() {
+			setup();
+		});
+	</script>
+}
