@@ -4,19 +4,19 @@
 }
 
 .dazhu-name {
-	color: green;
-	font-size: 32pt;
+	color: #47873A;
+	font-size: 26pt;
 }
 
 .dazhu-name-sub {
-	color: lightgray;
-	font-size: 32pt;
+	color: #999999;
+	font-size: 25pt;
 }
 
 .dazhu-name-sub-btn {
 	font-size: 18pt;
-	color: dark;
-	background-color: green;
+	color: #4D4D4D;
+	background-color: #47873A;
 	background-image: none;
 	
 	-moz-border-radius: 28px;      /* Gecko browsers */
@@ -25,8 +25,8 @@
 }
 
 .dazhu-description {
-	font-size: 18pt;
-	color: lightgray;
+	font-size: 24pt;
+	color: #999999;
 }
 
 .dazhu-right {

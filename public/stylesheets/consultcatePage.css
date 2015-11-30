@@ -4,18 +4,26 @@
 }
 
 .consultcate-spacer {
-	margin-top: 100px;
+	margin-top: 150px;
 }
 
 .consultcate-round {
   border-radius: 24px;
-  border: 2px solid #11c924;
-  color: #11c924 ;
+  border: 4px solid #47873A;
+  color: #47873A;
   background-color: none;
   width: 500px;
-  font-size: 41pt;
+  font-size: 36pt;
 }
 
 .consultacate-btn-spacer {
-	margin-top: 30px;
+	margin-top: 45px;
+}
+
+.logo-margin {
+	margin-top: 100px;
+}
+
+.title-margin {
+	margin-top: 200px;	
 }

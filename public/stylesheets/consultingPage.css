@@ -16,13 +16,13 @@
 }
 
 .category {
-	font-size: 50pt;
-	color: green;
+	font-size: 48pt;
+	color: #47873A;
 }
 
 .dazhu {
-	font-size: 40pt;
-	color: green;
+	font-size: 35pt;
+	color: #47873A;
 }
 
 .form-margin {
@@ -45,22 +45,25 @@
 }
 
 .label-font{
-	color: lightgray;
-	font-size: 20pt;
+	color: #C0C0C0;
+	font-size: 22pt;
 }
 
 .text-round {
 	-moz-border-radius: 28px;      /* Gecko browsers */
     -webkit-border-radius: 28px;   /* Webkit browsers */
     border-radius: 30px;            /* W3C syntax */
-    border: 2px solid green;
+    border: 2px solid #47873A;
+    background-color: #C0C0C0;
 }
 
 .btn-setting {
-  border-radius: 24px;
-  border: 2px solid green;
-  color: gray;
-  background: green;
-  font-size: 20pt;
+  	font-size: 22pt;
+	color: #47873A;
+	background-color: #4D4D4D;
+	background-image: none;
+	border: 4px solid #47873A;
+	border-radius: 30px;
+	width:17%;
 }
 

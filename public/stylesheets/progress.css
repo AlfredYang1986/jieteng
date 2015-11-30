@@ -4,11 +4,18 @@
 }
 
 .progress-title-text-margin-top {
-	margin-top: 10%;
+	margin-top: 15%;
+}
+
+.margin-logo-title {
+	margin-top: 20%
+}
+.margin-logo{
+	margin-top: 3%;
 }
 
 .progress-title {
-	font-size: 50pt;
+	font-size: 36pt;
 	padding: 20px 70px;
 	color: black;
 	
@@ -22,7 +29,7 @@
 
 .progress-text {
     text-align: left;
-	font-size: 45pt;
+	font-size: 36pt;
 }
 
 .progress-footer-margin-top {
