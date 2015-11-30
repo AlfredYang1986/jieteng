@@ -1,10 +1,12 @@
 .home-page-background {
-	background-image: url(/assets/images/home-page-background.png);
-    background-repeat: repeat;	
+	background-image: url(/assets/images/background-home-page.png);
+    background-repeat: no-repeat;
+	-moz-background-size:100% 100%;  
+    background-size:100% 100%; 	
 }
 
 .spacer {
-	margin-top: 17%%;
+	margin-top: 17%;
 }
 
 .spacer-content {
