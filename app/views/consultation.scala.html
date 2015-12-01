@@ -60,7 +60,7 @@
 				<tr>
 					<td colspan="3" style="padding-top: 8%" class="dazhu-row" data-index=@index>
 						<span>
-						<b><span class="dazhu-name">@{(iter \ "name").asOpt[String].get}</span> <span class="dazhu-name-sub">| @{(iter \ "type").asOpt[String].get} </span><button type="button" class="btn btn-sm btn-primary dazhu-name-sub-btn">点我咨询</button></b><br>
+						<b><span class="dazhu-name">@{(iter \ "name").asOpt[String].get}</span> <span class="dazhu-name-sub">| @{(iter \ "type").asOpt[String].get} </span><button type="button" data-dazhutype=@{(iter \ "type").asOpt[String].get} data-dazhuname=@{(iter \ "name").asOpt[String].get} class="btn btn-sm btn-primary dazhu-name-sub-btn">点我咨询</button></b><br>
 						<p class="dazhu-description">答主介绍：@{(iter \ "exp").asOpt[String].get}</p>
 						</span>
 					</td>
@@ -131,8 +131,11 @@
 			plst.current_page = index + 2;
         });
 
-		$(".dazhu-name-sub-btn-btn").bind(touchEvents.touchstart, function (event) {
-
+		$(".dazhu-name-sub-btn").bind(touchEvents.touchstart, function (event) {
+			var work_type = $(event.target).data("dazhutype")
+			var name = $(event.target).data("dazhuname")
+//			location.href = "http://182.92.112.94/consultingPage/" + work_type + "/" + name;			
+			location.href = "http://192.168.1.103:9000/consultingPage/" + work_type + "/" + name;			
 		});
 	</script>
 }

@@ -1,4 +1,4 @@
-@(message: String)
+@(message: String)(work_type: String)(work_name: String)
 
 @main(message) {
 	
@@ -22,9 +22,9 @@
 			</div>
 			
 			<div class="col-xs-4 col-md-6 title-margin">
-			<p class="category text-center">咨询类别</p>
+			<p class="category text-center">@work_type</p>
 			<img class="img-responsive seprate center-block" src="/assets/images/consulting-page-seprate.png" alt="consultingtitle">		
-			<p class="dazhu text-center">答主名字</p>
+			<p class="dazhu text-center">@work_name</p>
 			</div>
 		</div>
 		
@@ -48,23 +48,19 @@
 			  <div class="form-group form-margin-top">
 			    <label for="content" class="label col-sm-2 control-label col-offset-2 label-font">咨询内容</label>
 			    <div class="col-sm-6">
-			      <textarea class="form-control text-round" rows="15"></textarea>
+			      <textarea class="form-control text-round" rows="15" id="query-content"></textarea>
 			    </div>
 			  </div>
 			  
 			  
 			  <div class="form-group form-margin-top">
 			    <div class="col-sm-9 col-offset-1">
-			      <button type="submit" class="btn btn-default pull-right btn-setting">提交</button>
+			      <button type="button" id="push-query" class="btn btn-default pull-right btn-setting">提交</button>
 			    </div>
 			  </div>
 			  
 			</form>
-		
 		</div>
-	
-
-	
 	</div>
 } {
 
@@ -81,6 +77,40 @@
 		$(window).resize(function() {
 			setup();
 		});
+
+		$("#push-query").click(function(){
+			pushQueryContent();
+		});
+
+		function pushQueryContent() {
+			var query_object = new Object();
+			query_object['name'] = $('#nickname').val();
+			query_object['email'] = $('#email').val();
+			query_object['content'] = $('#query-content').val();
+			
+			$.ajax({
+		        url: 'http://192.168.1.103:9000/pushQueryContent',
+		        type: 'POST',
+		        dataType: 'json',
+		        contentType: 'application/json, charset=utf-8',
+		        data: JSON.stringify(query_object),
+		        cache: false,
+		        /*
+		        beforeSend: function () {
+		            Loading();
+		        },
+		        complete: function () {
+		            hiddenLoading();
+		        },
+		        */
+		        success: function (data) {
+			        alert(data)
+		        },
+		        error: function (xhr, status, error) {
+		            alert(error);
+		        }
+		    });
+		}
 	</script>
 }
 

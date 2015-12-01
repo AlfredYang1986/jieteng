@@ -3,10 +3,12 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.JieTengService.consultation
-GET     /serviceProtocol            controllers.JieTengService.serviceProtocol
-GET     /consultingPage				controllers.JieTengService.consultingPage
-GET     /progress					controllers.JieTengService.progress
+GET     /                    			       	controllers.JieTengService.consultation
+GET     /serviceProtocol            			controllers.JieTengService.serviceProtocol
+GET     /consultingPage/:work_type/:name		controllers.JieTengService.consultingPage(work_type, name)
+GET     /progress								controllers.JieTengService.progress
+
+POST	/pushQueryContent						controllers.JieTengService.pushQueryContent
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
