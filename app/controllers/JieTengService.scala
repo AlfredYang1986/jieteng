@@ -12,6 +12,7 @@ object JieTengService extends Controller {
 	def consultation = Action {
 		val data = Json.parse(Source.fromFile("public/data/abc-min.json").bufferedReader.readLine)
 		var lst = (data \ "data").asOpt[List[JsValue]].get
+		var indexing = (data \ "indexing").asOpt[List[JsValue]].get
 
 		val i = lst.length / 6
 		var rel : List[List[JsValue]] = Nil
@@ -20,7 +21,7 @@ object JieTengService extends Controller {
 		  rel = rel :+ a
 		  lst = b
 		}
-		Ok(views.html.consultation("Jie Teng She")(rel))
+		Ok(views.html.consultation("Jie Teng She")(rel)(indexing))
 	}
   
   def serviceProtocol = Action {

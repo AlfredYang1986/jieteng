@@ -24,11 +24,15 @@
 	-moz-border-radius: 28px;      /* Gecko browsers */
     -webkit-border-radius: 28px;   /* Webkit browsers */
     border-radius: 28px;            /* W3C syntax */
+    
+    margin-top: -12px;
 }
 
 .dazhu-description {
 	font-size: 24pt;
 	color: #999999;
+	
+	width: 400px;
 }
 
 .dazhu-right {

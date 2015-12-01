@@ -1,4 +1,4 @@
-@(message : String)(lst : List[List[play.api.libs.json.JsValue]])
+@(message : String)(lst : List[List[play.api.libs.json.JsValue]])(indexing: List[play.api.libs.json.JsValue])
 
 @main(message) {
 	
@@ -41,33 +41,24 @@
 			<img class="img-responsive center-block" src="/assets/images/consulting-page-seprate.png" alt="consultingtitle" height="150" width="450">				
 			</div>
 		</div>
+		@for((id, i) <- indexing.zipWithIndex) {
 		<div class = "row">
-			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultcate-spacer" data-index="3">工作咨询</button>
+			@if(i==0) {
+				<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultcate-spacer" data-index=@{(id \ "indexing").asOpt[Int].get}>@{(id \ "type").asOpt[String].get}</button>
+			} else {
+				<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index=@{(id \ "indexing").asOpt[Int].get}>@{(id \ "type").asOpt[String].get}</button>
+			}
 		</div>
-		<div class = "row">
-			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">考证咨询</button>
-		</div>
-		<div class = "row">
-			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">学习咨询</button>
-		</div>
-		<div class = "row">
-			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">旅游咨询</button>
-		</div>
-		<div class = "row">
-			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">签证咨询</button>
-		</div>
-		<div class = "row">
-			<button type="button" class="scroll-btn btn btn-lg consultcate-round center-block consultacate-btn-spacer" data-index="3">海淘咨询</button>
-		</div>			
+		}
 	</div>
 	
 	<!-- page 3: dazhupage -->
-	@for(iter_page <- lst) {
-	<div class="page dazhu-page-background">
+	@for((iter_page, page_index) <- lst.zipWithIndex) {
+	<div class="page dazhu-page-background" data-page-index=@page_index>
 		<table class="col-10 col-offset-1 row-offset-1"  border="0" cellspacing="0" cellpadding="2" bordercolor="#009900" >
 			@for((iter, index) <- iter_page.zipWithIndex) {
 				<tr>
-					<td colspan="3" style="padding-top: 12%" class="dazhu-row" data-index=@index>
+					<td colspan="3" style="padding-top: 8%" class="dazhu-row" data-index=@index>
 						<span>
 						<b><span class="dazhu-name">@{(iter \ "name").asOpt[String].get}</span> <span class="dazhu-name-sub">| @{(iter \ "type").asOpt[String].get} </span><button type="button" class="btn btn-sm btn-primary dazhu-name-sub-btn">点我咨询</button></b><br>
 						<p class="dazhu-description">答主介绍：@{(iter \ "exp").asOpt[String].get}</p>
@@ -97,8 +88,26 @@
 } {
 
 	<script type="text/javascript">
+		var touchEvents = {
+	        touchstart: "touchstart",
+	        touchmove: "touchmove",
+	        touchend: "touchend",
+
+	        /**
+	         * 判断是否pc设备，若是pc，需要更改touch事件为鼠标事件，否则默认触摸事件
+	         */
+	        initTouchEvents: function () {
+	            if (isPC()) {
+	                this.touchstart = "mousedown";
+	                this.touchmove = "mousemove";
+	                this.touchend = "mouseup";
+	            }
+	        }
+	    };
+	
+		var plst = new pages();
+
 		function setup() {
-			var plst = new pages();
 			plst.calledWhenResize();
 		};
 	
@@ -114,6 +123,16 @@
 	
 		$(window).resize(function() {
 			setup();
+		});
+
+		$(".scroll-btn").bind(touchEvents.touchstart, function (event) {
+			var index = $(event.target).data("index");
+			$("html,body").animate({scrollTop:$("[data-page-index="+ index +"]").offset().top}, 500);
+			plst.current_page = index + 2;
+        });
+
+		$(".dazhu-name-sub-btn-btn").bind(touchEvents.touchstart, function (event) {
+
 		});
 	</script>
 }

@@ -20,8 +20,8 @@ pages.prototype.addElementAsPage = function (ele) {
 }
 
 pages.prototype.calledWhenResize = function () {
-	var width = $(window).width();
-	var height = $(window).height();
+	var height = document.documentElement.clientHeight + 20; // magic number, because of the status bar
+	var width = document.documentElement.clientWidth;
 	
 	for (var index = 0; index < this.lst_page.length; ++index) {
 		$(this.lst_page[index]).css({ "width": width,
