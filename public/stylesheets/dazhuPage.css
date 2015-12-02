@@ -18,8 +18,9 @@
 .dazhu-name-sub-btn {
 	font-size: 18pt;
 	color: #4D4D4D;
-	background-color: #47873A;
+	background-color: #FFFFFF;
 	background-image: none;
+	border: 3px solid #47873A;
 	
 	-moz-border-radius: 28px;      /* Gecko browsers */
     -webkit-border-radius: 28px;   /* Webkit browsers */
@@ -31,7 +32,6 @@
 .dazhu-description {
 	font-size: 24pt;
 	color: #999999;
-	
 	width: 400px;
 }
 
