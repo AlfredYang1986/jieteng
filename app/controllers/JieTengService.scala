@@ -56,11 +56,9 @@ object JieTengService extends Controller {
 	def pushQueryContent = Action (request => requestArgs(request)(this.pushQueryContentImpl))
 	def pushQueryContentImpl(data : JsValue) : JsValue = {
 
-	  println(123)
 		val nickName = (data \ "name").asOpt[String].get
 		val email = (data \ "email").asOpt[String].get
 		val content = (data \ "content").asOpt[String].get
-	  println(456)
 		
 		val builder = MongoDBObject.newBuilder
 		
