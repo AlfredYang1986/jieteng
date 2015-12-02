@@ -89,7 +89,8 @@
 			query_object['content'] = $('#query-content').val();
 			
 			$.ajax({
-		        url: 'http://192.168.1.103:9000/pushQueryContent',
+		        //url: 'http://192.168.1.103:9000/pushQueryContent',
+				url: "http://182.92.112.94/pushQueryContent",
 		        type: 'POST',
 		        dataType: 'json',
 		        contentType: 'application/json, charset=utf-8',
@@ -104,10 +105,10 @@
 		        },
 		        */
 		        success: function (data) {
-			        alert(data)
+			        alert(data.message);
 		        },
 		        error: function (xhr, status, error) {
-		            alert(error);
+			        alert("发布失败，请检查您的输入");
 		        }
 		    });
 		}
