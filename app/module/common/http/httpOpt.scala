@@ -66,7 +66,8 @@ case class httpOpt(val url : String) {
 			line = in.readLine
 		} while (line != null)
 
-		parse(buffer.toString) 
+		if (buffer.length > 0) parse(buffer.toString) 
+		else null
 	}
 	
 	def post(parameters : JsValue) : JsValue = {

@@ -12,6 +12,7 @@ import java.util.Date
 import util.dao._
 import module.common.http._
 import java.security.MessageDigest
+import java.net.URLEncoder
 
 /**
  * for con = 0: just upload
@@ -106,5 +107,24 @@ object JieTengService extends Controller {
 	def queryProgress = Action (request => requestArgs(request)(this.queryProgressImpl))
 	def queryProgressImpl(data : JsValue) : JsValue = {
 		null
+	}
+	
+	/**
+	 * wechat oauth
+	 */
+	def queryWechatAuthCode = Action {
+		println("auth code")
+		val redirect_uri = "http://192.168.1.101:9000/queryWechatOpenID"
+		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
+		println(authCodeUrl)
+		
+//		(HTTP(authCodeUrl)).get(null)
+		Redirect(authCodeUrl)
+	 }
+	
+	def queryWechatOpenID(code: String, status: String) =	Action {
+		println("get open id")
+		val redirect_uri = "http://localhost:9000/queryWechatOpenID"
+		Ok("get wechat open id")
 	}
 }
