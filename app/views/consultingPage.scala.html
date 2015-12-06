@@ -1,4 +1,4 @@
-@(message: String)(work_type: String)(work_name: String)(app_id: String)(signiture: String)(timespan: String)
+@(message: String)(work_type: String)(work_name: String)(pay_args: play.api.libs.json.JsValue)(openid: String)
 
 @main(message) {
 	
@@ -7,7 +7,7 @@
 	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="//cdn.bootcss.com/jquery.touchswipe/1.6.12/jquery.touchSwipe.js"></script>
-	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<!--  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>--> 
 	
 	<script src="@routes.Assets.at("javascripts/page.js")"></script>
 	<link rel="stylesheet" href="@routes.Assets.at("stylesheets/page.css")">
@@ -90,8 +90,8 @@
 			query_object['content'] = $('#query-content').val();
 			
 			$.ajax({
-		        //url: 'http://192.168.1.103:9000/pushQueryContent',
-				url: "http://182.92.112.94/pushQueryContent",
+		        url: 'http://192.168.1.103:9000/pushQueryContent',
+				//url: "http://www.jietengculture.com/pushQueryContent",
 		        type: 'POST',
 		        dataType: 'json',
 		        contentType: 'application/json, charset=utf-8',
@@ -113,32 +113,6 @@
 		        }
 		    });
 		}
-		
-		function payFunc() {
-			WeixinJSBridge.invoke('getBrandWCPayRequest',{
-			
-			});
-		}
-
-		wx.config({
-		    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-		    appId: '@app_id', // 必填，公众号的唯一标识
-		    timestamp: @timespan, // 必填，生成签名的时间戳
-		    nonceStr: 'Wm3WZYTPz0wzccnW', // 必填，生成签名的随机串
-		    signature: '@signiture',// 必填，签名，见附录1
-		    jsApiList: [
-		    	'checkJsApi',
-		    	'chooseWXPay'
-		    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-		});
-		
-		wx.ready(function () {
-			console.log("weixin api ready")
-		});
-		  
-		wx.error(function (res) {
-  			alert(res.errMsg);
-		});
 	</script>
 }
 

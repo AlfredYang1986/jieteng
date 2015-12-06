@@ -69,6 +69,26 @@ case class httpOpt(val url : String) {
 		if (buffer.length > 0) parse(buffer.toString) 
 		else null
 	}
+
+	def post(data : String) : String = {
+		connection.setDoOutput(true)
+		connection.connect
+
+		val postStream = new OutputStreamWriter(connection.getOutputStream())
+		postStream.write(data)
+		postStream.flush
+		postStream.close
+
+		val in = new BufferedReader(new InputStreamReader(connection.getInputStream))
+		val buffer = new StringBuffer
+		var line = ""
+		do {
+			buffer.append(line)
+			line = in.readLine
+		} while (line != null)
+
+		buffer.toString
+	}
 	
 	def post(parameters : JsValue) : JsValue = {
 		connection.setDoOutput(true)

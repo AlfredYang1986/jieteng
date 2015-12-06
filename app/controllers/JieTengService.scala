@@ -13,6 +13,8 @@ import util.dao._
 import module.common.http._
 import java.security.MessageDigest
 import java.net.URLEncoder
+import scala.xml.XML
+import module.sercurity
 
 /**
  * for con = 0: just upload
@@ -29,11 +31,23 @@ object queryStatus{
 
 object JieTengService extends Controller {
 
+	/**
+	 * wechat app id
+	 */
 	val app_id = "wxb46efccede9f5a76"
 	val app_secret = "06ff8eb4765422c073f555284e227a9f"
+	
+	/**
+	 * wechat business id
+	 */
+	val mch_id = "1270524501"
+	val mch_key = "asdfjlk;"
+	val pay_noncestr = "b927722419c52622651a871d1d9ed8b2"
+	val pay_body = "答主咨询费"
+	val pay_notify = "http://wxpay.weixin.qq.com/pub_v2/pay/notify.php"
+	  
 	val weixin_http = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + app_id + "&secret=" + app_secret
 	val weixin_jsapi = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token="
-	val sign = "jsapi_ticket=#(ticket)&noncestr=Wm3WZYTPz0wzccnW&timestamp=#(time)&url=http://localhost:9000/consultingPage"
   
 	def consultation(openid: String) = Action {
 		println(openid)
@@ -48,24 +62,41 @@ object JieTengService extends Controller {
 		  rel = rel :+ a
 		  lst = b
 		}
-		Ok(views.html.consultation("Jie Teng She")(rel)(indexing))
+		Ok(views.html.consultation("Jie Teng She")(rel)(indexing)(openid))
 	}
   
 	def serviceProtocol = Action {
 		Ok(views.html.serviceProtocol("page 2"))
 	}
   
-	def consultingPage(work_type: String, name: String) = Action {
-		val wechat_token = ((HTTP(weixin_http)).get(null) \ "access_token").asOpt[String].get
-		val wechat_jsapi = ((HTTP(weixin_jsapi + wechat_token)).get(null) \ "ticket").asOpt[String].get
-		val timespan = (new Date().getTime / 1000).toString
-		val str = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://localhost:9000/consultingPage"
-		val messageDigest = MessageDigest.getInstance("SHA1");
-		messageDigest.update(str.getBytes());
-		val signiture = getFormattedText(messageDigest.digest());
+	def consultingPage(work_type: String, name: String, openid: String) = Action {
+//		val wechat_token = ((HTTP(weixin_http)).get(null) \ "access_token").asOpt[String].get
+//		val wechat_jsapi = ((HTTP(weixin_jsapi + wechat_token)).get(null) \ "ticket").asOpt[String].get
+//		val timespan = (new Date().getTime / 1000).toString
+//		val str = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://localhost:9000/consultingPage"
+//		val messageDigest = MessageDigest.getInstance("SHA1");
+//		messageDigest.update(str.getBytes());
+//		val signiture = getFormattedText(messageDigest.digest());
 		//println(signiture)
 	  
-		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(app_id)(signiture)(timespan))
+//		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(app_id)(signiture)(timespan))
+	 
+		/**
+		 * get uni order, prepay_id
+		 */
+		val timespan = module.sercurity.Sercurity.getTimeSpanWithSeconds
+		val trade_no = module.sercurity.Sercurity.md5Hash(openid + timespan)
+		
+		val str = "appid=" + app_id + "&body=" + pay_body + "&mch_id=" + mch_id + "&nonce_str=" + pay_noncestr + "&notify_url="+ pay_notify + "&openid=" + openid + "&out_trade_no=" + trade_no + "&spbill_create_ip=127.0.0.1&total_fee=1&trade_type=JSAPI&key=" + mch_key
+		val str_md5 = module.sercurity.Sercurity.md5Hash(str).toUpperCase
+		val valxml = """<xml><appid>%s</appid><body><![CDATA[%s]]></body><mch_id>%s</mch_id><nonce_str>%s</nonce_str><notify_url>%s</notify_url><openid>%s</openid><out_trade_no>%s</out_trade_no><spbill_create_ip>127.0.0.1</spbill_create_ip><total_fee>1</total_fee><trade_type>JSAPI</trade_type><sign><![CDATA[%s]]></sign></xml>"""
+		  			.format(app_id, pay_body, mch_id, pay_noncestr, pay_notify, openid, trade_no, str_md5)
+		
+		val order_url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
+		val result = ((HTTP(order_url)).post(valxml.toString))
+		println(result)
+	  
+		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(null)(openid))
 	}
 	
 	private def getFormattedText(bytes : Array[Byte]) : String = {

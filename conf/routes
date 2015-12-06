@@ -3,17 +3,17 @@
 # ~~~~
 
 # Home page
-GET     /consultation/:openid                   controllers.JieTengService.consultation(openid)
-GET     /serviceProtocol            			controllers.JieTengService.serviceProtocol
-GET     /consultingPage/:work_type/:name		controllers.JieTengService.consultingPage(work_type, name)
-GET     /progress								controllers.JieTengService.progress
+GET     /consultation/:openid                  			controllers.JieTengService.consultation(openid)
+GET     /serviceProtocol            					controllers.JieTengService.serviceProtocol
+GET     /consultingPage/:work_type/:name/:openid		controllers.JieTengService.consultingPage(work_type, name, openid)
+GET     /progress										controllers.JieTengService.progress
 
-POST	/pushQueryContent						controllers.JieTengService.pushQueryContent
+POST	/pushQueryContent								controllers.JieTengService.pushQueryContent
 
 # Open ID
-# GET		/queryWechatAuthCode					controllers.JieTengService.queryWechatAuthCode
-GET		/										controllers.JieTengService.queryWechatAuthCode
-GET		/queryWechatOpenID						controllers.JieTengService.queryWechatOpenID(code, status="")
+# GET		/queryWechatAuthCode						controllers.JieTengService.queryWechatAuthCode
+GET		/												controllers.JieTengService.queryWechatAuthCode
+GET		/queryWechatOpenID								controllers.JieTengService.queryWechatOpenID(code, status="")
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
