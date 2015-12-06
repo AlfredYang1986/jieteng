@@ -35,7 +35,8 @@ object JieTengService extends Controller {
 	val weixin_jsapi = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token="
 	val sign = "jsapi_ticket=#(ticket)&noncestr=Wm3WZYTPz0wzccnW&timestamp=#(time)&url=http://localhost:9000/consultingPage"
   
-	def consultation = Action {
+	def consultation(openid: String) = Action {
+		println(openid)
 		val data = Json.parse(Source.fromFile("public/data/abc-min.json").bufferedReader.readLine)
 		var lst = (data \ "data").asOpt[List[JsValue]].get
 		var indexing = (data \ "indexing").asOpt[List[JsValue]].get
@@ -86,11 +87,13 @@ object JieTengService extends Controller {
 	def pushQueryContent = Action (request => requestArgs(request)(this.pushQueryContentImpl))
 	def pushQueryContentImpl(data : JsValue) : JsValue = {
 
+		val open_id = (data \ "openid").asOpt[String].get
 		val nickName = (data \ "name").asOpt[String].get
 		val email = (data \ "email").asOpt[String].get
 		val content = (data \ "content").asOpt[String].get
 		
 		val builder = MongoDBObject.newBuilder
+	
 		
 		builder += "name" -> nickName
 		builder += "email" -> email
@@ -113,20 +116,20 @@ object JieTengService extends Controller {
 	 * wechat oauth
 	 */
 	def queryWechatAuthCode = Action {
-		println("auth code")
-		val redirect_uri = "http://192.168.1.101:9000/queryWechatOpenID"
-//		val redirect_uri = "http://www.jietengculture.com/queryWechatOpenID"
+//		val redirect_uri = "http://192.168.1.101:9000/queryWechatOpenID"
+		val redirect_uri = "http://www.jietengculture.com/queryWechatOpenID"
 		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
-		println(authCodeUrl)
 		
-//		(HTTP(authCodeUrl)).get(null)
 		Redirect(authCodeUrl)
 	 }
 	
-	def queryWechatOpenID(code: String, status: String) =	Action {
-		println("get open id")
+	def queryWechatOpenID(code: String, status: String) = Action {
 		println(code)
-		val redirect_uri = "http://localhost:9000/queryWechatOpenID"
-		Ok("get wechat open id")
+		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
+		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
+		println(openid)
+		
+		Redirect("http://192.168.1.101:9000/consultation/" + openid)
+//		Redirect("http://www.jietengculture.com")
 	}
 }
