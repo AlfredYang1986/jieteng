@@ -12,7 +12,7 @@ POST	/pushQueryContent						controllers.JieTengService.pushQueryContent
 
 # Open ID
 GET		/queryWechatAuthCode					controllers.JieTengService.queryWechatAuthCode
-GET		/queryWechatOpenID						controllers.JieTengService.queryWechatOpenID(code, status)
+GET		/queryWechatOpenID						controllers.JieTengService.queryWechatOpenID(code, status="")
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
