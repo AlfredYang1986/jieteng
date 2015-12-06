@@ -1,4 +1,4 @@
-@(message: String)(work_type: String)(work_name: String)
+@(message: String)(work_type: String)(work_name: String)(app_id: String)(signiture: String)(timespan: String)
 
 @main(message) {
 	
@@ -66,30 +66,26 @@
 } {
 
 	<script type="text/javascript">
-		function getWeixinAccessToken() {
-			$.ajax({
-				url: "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxb46efccede9f5a76&secret=06ff8eb4765422c073f555284e227a9f",
-		        type: 'GET',
-		        dataType: 'json',
-		        //contentType: 'application/json, charset=utf-8',
-		        cache: false,
-		        /*
-		        beforeSend: function () {
-		            Loading();
-		        },
-		        complete: function () {
-		            hiddenLoading();
-		        },
-		        */
-		        success: function (data) {
-			        alert(success);
-			        alert(data.access_token);
-		        },
-		        error: function (xhr, status, error) {
-			        alert("发布失败，请检查您的输入");
-		        }
-		    });	
-		}
+
+		wx.config({
+		    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		    appId: '@app_id', // 必填，公众号的唯一标识
+		    timestamp: @timespan, // 必填，生成签名的时间戳
+		    nonceStr: 'Wm3WZYTPz0wzccnW', // 必填，生成签名的随机串
+		    signature: '@signiture',// 必填，签名，见附录1
+		    jsApiList: [
+		    	'checkJsApi',
+		    	'chooseWXPay'
+		    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+		
+		wx.ready(function () {
+			alert("weixin api ready")
+		});
+		  
+		wx.error(function (res) {
+  			alert(res.errMsg);
+		});
 		
 		function setup() {
 			var plst = new pages();
@@ -98,8 +94,6 @@
 	
 		$(function(){
 			setup();
-
-			getWeixinAccessToken();
 		});
 	
 		$(window).resize(function() {
