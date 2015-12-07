@@ -89,8 +89,8 @@
 			query_object['openid'] = '@openid';
 			
 			$.ajax({
-		        url: 'http://192.168.1.101:9000/createPrepayID',
-				//url: 'http://www.jietengculture.com/createPrepayID',
+		        //url: 'http://192.168.1.101:9000/createPrepayID',
+				url: 'http://www.jietengculture.com/createPrepayID',
 		        type: 'POST',
 		        dataType: 'json',
 		        contentType: 'application/json, charset=utf-8',
@@ -113,8 +113,8 @@
 			query_object['content'] = $('#query-content').val();
 			
 			$.ajax({
-		        url: 'http://192.168.1.101:9000/pushQueryContent',
-				//url: "http://www.jietengculture.com/pushQueryContent",
+		        //url: 'http://192.168.1.101:9000/pushQueryContent',
+				url: "http://www.jietengculture.com/pushQueryContent",
 		        type: 'POST',
 		        dataType: 'json',
 		        contentType: 'application/json, charset=utf-8',
