@@ -167,7 +167,6 @@ object JieTengService extends Controller {
 	 }
 	
 	def queryWechatOpenID(code: String, status: String) = Action {
-		println(code)
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
