@@ -120,9 +120,9 @@ object JieTengService extends Controller {
 		if (prepay_id.startsWith("<![CDATA[") && prepay_id.endsWith("]]>")) 
 			prepay_id = prepay_id.substring(9, prepay_id.length - 3)
 		
-		val pay_str = "appid=" + app_id + "&nonce_str=" + pay_noncestr + "&package=" + "prepay_id=" + prepay_id + "&signType=MD5" + "&timespan=" + timespan
-		println(pay_str)
+		val pay_str = "appid=" + app_id + "&nonceStr=" + pay_noncestr + "&package=" + "prepay_id=" + prepay_id + "&signType=MD5" + "&timespan=" + timespan + "&key=" + mch_key
 		val pay_str_md5 = module.sercurity.Sercurity.md5Hash(pay_str).toUpperCase 
+		println(pay_str)
 			
 		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id), 
 		    "out_trade_no" -> toJson(trade_no), "pay_sign" -> toJson(pay_str_md5),
