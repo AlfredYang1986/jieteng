@@ -74,8 +74,6 @@ object JieTengService extends Controller {
 		val wechat_jsapi = ((HTTP(weixin_jsapi + wechat_token)).get(null) \ "ticket").asOpt[String].get
 		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
 		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.jietengculture.com/wxpay/consultingPage?work_type=" + URLEncoder.encode(work_type) + "&name=" + URLEncoder.encode(name) + "&openid=" + openid;			
-//		http://www.jietengculture.com/wxpay/consultingPage/" + URLEncoder.encode(work_type) + "/" + URLEncoder.encode(name) + "/" + openid
-//		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.jietengculture.com/consultingPage/" + URLEncoder.encode(work_type) + "/" + URLEncoder.encode(name) + "/" + openid
 		val crypt = MessageDigest.getInstance("SHA-1");
         crypt.reset();
         crypt.update(str_js.getBytes("UTF-8"));
@@ -124,7 +122,6 @@ object JieTengService extends Controller {
 		
 		val pay_str = "appId=" + app_id + "&nonceStr=" + pay_noncestr + "&package=prepay_id=" + prepay_id + "&signType=MD5&timeStamp=" + timespan + "&key=" + mch_key
 		val pay_str_md5 = module.sercurity.Sercurity.md5Hash(pay_str).toUpperCase 
-		println(pay_str)
 			
 		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id), 
 		    "out_trade_no" -> toJson(trade_no), "pay_sign" -> toJson(pay_str_md5),
@@ -166,7 +163,6 @@ object JieTengService extends Controller {
 	 * wechat oauth
 	 */
 	def queryWechatAuthCode = Action {
-//		val redirect_uri = "http://192.168.1.101:9000/queryWechatOpenID"
 		val redirect_uri = "http://www.jietengculture.com/queryWechatOpenID"
 		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
 		
@@ -177,7 +173,6 @@ object JieTengService extends Controller {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
-//		Redirect("http://192.168.1.101:9000/consultation/" + openid)
 		Redirect("http://www.jietengculture.com/consultation/" + openid)
 	}
 }

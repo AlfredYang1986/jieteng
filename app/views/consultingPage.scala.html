@@ -103,13 +103,13 @@
 					    signType: 'MD5', // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
 					    paySign: data.pay_sign, // 支付签名
 					    success: function (res) {
-					    	alert("success");
+					    	pushQueryContent(data.out_trade_no);
             			},
 			            cancel: function () {
-					    	alert("cancel");
+					    	alert("user cancel");
             			},
 			            error: function (e) {
-					    	alert("error");
+					    	alert("weixin pay error");
             			}
 					});
 		        },
@@ -119,11 +119,15 @@
 		    });
 		}
 
-		function pushQueryContent() {
+		function pushQueryContent(trade_no) {
 			var query_object = new Object();
+			query_object['openid'] = '@openid';
+			query_object['trade_no'] = trade_no;
 			query_object['name'] = $('#nickname').val();
 			query_object['email'] = $('#email').val();
 			query_object['content'] = $('#query-content').val();
+			
+			alert(JSON.stringify(query_object));
 			
 			$.ajax({
 		        //url: 'http://192.168.1.101:9000/pushQueryContent',
