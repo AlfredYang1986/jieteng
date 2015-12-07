@@ -41,7 +41,8 @@ object JieTengService extends Controller {
 	 * wechat business id
 	 */
 	val mch_id = "1270524501"
-	val mch_key = "asdfjlk;"
+//	val mch_key = "RataVageTigreConejoDragon8888888"
+	val mch_key = "jietengculturejietengcultureabcd"
 	val pay_noncestr = "b927722419c52622651a871d1d9ed8b2"
 	val pay_body = "答主咨询费"
 	val pay_notify = "http://wxpay.weixin.qq.com/pub_v2/pay/notify.php"
@@ -70,33 +71,38 @@ object JieTengService extends Controller {
 	}
   
 	def consultingPage(work_type: String, name: String, openid: String) = Action {
-//		val wechat_token = ((HTTP(weixin_http)).get(null) \ "access_token").asOpt[String].get
-//		val wechat_jsapi = ((HTTP(weixin_jsapi + wechat_token)).get(null) \ "ticket").asOpt[String].get
-//		val timespan = (new Date().getTime / 1000).toString
-//		val str = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://localhost:9000/consultingPage"
-//		val messageDigest = MessageDigest.getInstance("SHA1");
-//		messageDigest.update(str.getBytes());
-//		val signiture = getFormattedText(messageDigest.digest());
-		//println(signiture)
-	  
-//		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(app_id)(signiture)(timespan))
+		val wechat_token = ((HTTP(weixin_http)).get(null) \ "access_token").asOpt[String].get
+		val wechat_jsapi = ((HTTP(weixin_jsapi + wechat_token)).get(null) \ "ticket").asOpt[String].get
+		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
+		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.jietengculture.com/consultingPage/" + URLEncoder.encode(work_type) + "/" + URLEncoder.encode(name) + "/" + openid
+		val crypt = MessageDigest.getInstance("SHA-1");
+        crypt.reset();
+        crypt.update(str_js.getBytes("UTF-8"));
+		val signiture = getFormattedText(crypt.digest());
+		println(signiture)
 	 
 		/**
 		 * get uni order, prepay_id
 		 */
-		val timespan = module.sercurity.Sercurity.getTimeSpanWithSeconds
-		val trade_no = module.sercurity.Sercurity.md5Hash(openid + timespan)
-		
-		val str = "appid=" + app_id + "&body=" + pay_body + "&mch_id=" + mch_id + "&nonce_str=" + pay_noncestr + "&notify_url="+ pay_notify + "&openid=" + openid + "&out_trade_no=" + trade_no + "&spbill_create_ip=127.0.0.1&total_fee=1&trade_type=JSAPI&key=" + mch_key
-		val str_md5 = module.sercurity.Sercurity.md5Hash(str).toUpperCase
-		val valxml = """<xml><appid>%s</appid><body><![CDATA[%s]]></body><mch_id>%s</mch_id><nonce_str>%s</nonce_str><notify_url>%s</notify_url><openid>%s</openid><out_trade_no>%s</out_trade_no><spbill_create_ip>127.0.0.1</spbill_create_ip><total_fee>1</total_fee><trade_type>JSAPI</trade_type><sign><![CDATA[%s]]></sign></xml>"""
-		  			.format(app_id, pay_body, mch_id, pay_noncestr, pay_notify, openid, trade_no, str_md5)
-		
-		val order_url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
-		val result = ((HTTP(order_url)).post(valxml.toString))
-		println(result)
+//		val trade_no = module.sercurity.Sercurity.md5Hash(openid + timespan)
+//		
+//		val str_pay = "appid=" + app_id + "&body=" + pay_body + "&mch_id=" + mch_id + "&nonce_str=" + pay_noncestr + "&notify_url="+ pay_notify + "&openid=" + openid + "&out_trade_no=" + trade_no + "&spbill_create_ip=127.0.0.1&total_fee=1&trade_type=JSAPI&key=" + mch_key
+//		val str_md5 = module.sercurity.Sercurity.md5Hash(str_pay).toUpperCase
+//		val valxml = """<xml><appid>%s</appid><body><![CDATA[%s]]></body><mch_id>%s</mch_id><nonce_str>%s</nonce_str><notify_url>%s</notify_url><openid>%s</openid><out_trade_no>%s</out_trade_no><spbill_create_ip>127.0.0.1</spbill_create_ip><total_fee>1</total_fee><trade_type>JSAPI</trade_type><sign><![CDATA[%s]]></sign></xml>"""
+//		  			.format(app_id, pay_body, mch_id, pay_noncestr, pay_notify, openid, trade_no, str_md5)
+//		
+//		val order_url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
+//		val result = ((HTTP(order_url)).post(valxml.toString))
+//		println(result)
+//		
+//		val tag = "return_code"
+//		var return_code = result.substring(result.indexOf(tag) + tag.length + 1, result.indexOf("</" + tag)) 
+//		println(return_code)
+//		if (return_code.startsWith("<![CDATA[") && return_code.endsWith("]]>")) 
+//			return_code = return_code.substring(9, return_code.length - 3)
+//		println(return_code)
 	  
-		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(null)(openid))
+		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(app_id)(signiture)(timespan)(null)(openid))
 	}
 	
 	private def getFormattedText(bytes : Array[Byte]) : String = {
@@ -115,6 +121,33 @@ object JieTengService extends Controller {
 		Ok(views.html.progress("page 7"))
 	}
 
+	def createPrepayID = Action (request => requestArgs(request)(this.createPrepayIDImpl))
+	def createPrepayIDImpl(data : JsValue) : JsValue = {
+		val openid = (data \ "openid").asOpt[String].get
+		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
+		/**
+		 * get uni order, prepay_id
+		 */
+		val trade_no = module.sercurity.Sercurity.md5Hash(openid + timespan)
+		
+		val str_pay = "appid=" + app_id + "&body=" + pay_body + "&mch_id=" + mch_id + "&nonce_str=" + pay_noncestr + "&notify_url="+ pay_notify + "&openid=" + openid + "&out_trade_no=" + trade_no + "&spbill_create_ip=127.0.0.1&total_fee=1&trade_type=JSAPI&key=" + mch_key
+		val str_md5 = module.sercurity.Sercurity.md5Hash(str_pay).toUpperCase
+		val valxml = """<xml><appid>%s</appid><body><![CDATA[%s]]></body><mch_id>%s</mch_id><nonce_str>%s</nonce_str><notify_url>%s</notify_url><openid>%s</openid><out_trade_no>%s</out_trade_no><spbill_create_ip>127.0.0.1</spbill_create_ip><total_fee>1</total_fee><trade_type>JSAPI</trade_type><sign><![CDATA[%s]]></sign></xml>"""
+		  			.format(app_id, pay_body, mch_id, pay_noncestr, pay_notify, openid, trade_no, str_md5)
+		
+		val order_url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
+		val result = ((HTTP(order_url)).post(valxml.toString))
+		println(result)
+		
+		val tag = "prepay_id"
+		var prepay_id = result.substring(result.indexOf(tag) + tag.length + 1, result.indexOf("</" + tag)) 
+		println(prepay_id)
+		if (prepay_id.startsWith("<![CDATA[") && prepay_id.endsWith("]]>")) 
+			prepay_id = prepay_id.substring(9, prepay_id.length - 3)
+		println(prepay_id)
+		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id)))
+	}
+	
 	def pushQueryContent = Action (request => requestArgs(request)(this.pushQueryContentImpl))
 	def pushQueryContentImpl(data : JsValue) : JsValue = {
 
