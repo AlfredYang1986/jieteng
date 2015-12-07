@@ -84,12 +84,13 @@
 		});
 
 		function createPrepayID() {
+			alert("create prepayID");
 			var query_object = new Object();
 			query_object['openid'] = @openid
 			
 			$.ajax({
-		        //url: 'http://192.168.1.101:9000/createPrepayID',
-				url: "http://www.jietengculture.com/createPrepayID",
+		        url: 'http://192.168.1.101:9000/createPrepayID',
+				//url: 'http://www.jietengculture.com/createPrepayID',
 		        type: 'POST',
 		        dataType: 'json',
 		        contentType: 'application/json, charset=utf-8',
@@ -141,7 +142,7 @@
 		});
 		
 		wx.ready(function () {
-			alert("weixin api ready")
+			//alert("weixin api ready")
 		});
 		  
 		wx.error(function (res) {

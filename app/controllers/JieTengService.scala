@@ -118,10 +118,8 @@ object JieTengService extends Controller {
 		
 		val tag = "prepay_id"
 		var prepay_id = result.substring(result.indexOf(tag) + tag.length + 1, result.indexOf("</" + tag)) 
-		println(prepay_id)
 		if (prepay_id.startsWith("<![CDATA[") && prepay_id.endsWith("]]>")) 
 			prepay_id = prepay_id.substring(9, prepay_id.length - 3)
-		println(prepay_id)
 		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id), "out_trade_no" -> toJson(trade_no)))
 	}
 	
@@ -171,7 +169,6 @@ object JieTengService extends Controller {
 		println(code)
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
-		println(openid)
 		
 //		Redirect("http://192.168.1.101:9000/consultation/" + openid)
 		Redirect("http://www.jietengculture.com/consultation/" + openid)
