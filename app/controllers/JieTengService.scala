@@ -173,7 +173,7 @@ object JieTengService extends Controller {
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		println(openid)
 		
-		Redirect("http://192.168.1.101:9000/consultation/" + openid)
-//		Redirect("http://www.jietengculture.com")
+//		Redirect("http://192.168.1.101:9000/consultation/" + openid)
+		Redirect("http://www.jietengculture.com/consultation/" + openid)
 	}
 }
