@@ -73,7 +73,9 @@ object JieTengService extends Controller {
 		val wechat_token = ((HTTP(weixin_http)).get(null) \ "access_token").asOpt[String].get
 		val wechat_jsapi = ((HTTP(weixin_jsapi + wechat_token)).get(null) \ "ticket").asOpt[String].get
 		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
-		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.jietengculture.com/consultingPage/" + URLEncoder.encode(work_type) + "/" + URLEncoder.encode(name) + "/" + openid
+		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.jietengculture.com/wxpay/consultingPage?work_type=" + URLEncoder.encode(work_type) + "&name=" + URLEncoder.encode(name) + "&openid=" + openid;			
+//		http://www.jietengculture.com/wxpay/consultingPage/" + URLEncoder.encode(work_type) + "/" + URLEncoder.encode(name) + "/" + openid
+//		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.jietengculture.com/consultingPage/" + URLEncoder.encode(work_type) + "/" + URLEncoder.encode(name) + "/" + openid
 		val crypt = MessageDigest.getInstance("SHA-1");
         crypt.reset();
         crypt.update(str_js.getBytes("UTF-8"));

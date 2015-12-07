@@ -5,7 +5,7 @@
 # Home page
 GET     /consultation/:openid                  				controllers.JieTengService.consultation(openid)
 GET     /serviceProtocol            						controllers.JieTengService.serviceProtocol
-GET     /wxpay/consultingPage/:work_type/:name/:openid		controllers.JieTengService.consultingPage(work_type, name, openid)
+GET     /wxpay/consultingPage								controllers.JieTengService.consultingPage(work_type, name, openid)
 # GET     /consultingPage/:work_type/:name/:openid		controllers.JieTengService.consultingPage(work_type, name, openid)
 GET     /progress											controllers.JieTengService.progress
 
