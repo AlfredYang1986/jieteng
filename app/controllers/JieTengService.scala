@@ -145,19 +145,22 @@ object JieTengService extends Controller {
 		if (prepay_id.startsWith("<![CDATA[") && prepay_id.endsWith("]]>")) 
 			prepay_id = prepay_id.substring(9, prepay_id.length - 3)
 		println(prepay_id)
-		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id)))
+		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id), "out_trade_no" -> toJson(trade_no)))
 	}
 	
 	def pushQueryContent = Action (request => requestArgs(request)(this.pushQueryContentImpl))
 	def pushQueryContentImpl(data : JsValue) : JsValue = {
 
 		val open_id = (data \ "openid").asOpt[String].get
+		val trade_no = (data \ "trade_no").asOpt[String].get
 		val nickName = (data \ "name").asOpt[String].get
 		val email = (data \ "email").asOpt[String].get
 		val content = (data \ "content").asOpt[String].get
 		
 		val builder = MongoDBObject.newBuilder
-	
+
+		builder += "openid" -> open_id
+		builder += "trade_no" -> trade_no
 		
 		builder += "name" -> nickName
 		builder += "email" -> email
