@@ -100,7 +100,6 @@ object JieTengService extends Controller {
 
 	def createPrepayID = Action (request => requestArgs(request)(this.createPrepayIDImpl))
 	def createPrepayIDImpl(data : JsValue) : JsValue = {
-		println(data)
 		val openid = (data \ "openid").asOpt[String].get
 		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
 		/**
@@ -115,13 +114,14 @@ object JieTengService extends Controller {
 		
 		val order_url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
 		val result = ((HTTP(order_url)).post(valxml.toString))
-		println(result)
 		
 		val tag = "prepay_id"
 		var prepay_id = result.substring(result.indexOf(tag) + tag.length + 1, result.indexOf("</" + tag)) 
 		if (prepay_id.startsWith("<![CDATA[") && prepay_id.endsWith("]]>")) 
 			prepay_id = prepay_id.substring(9, prepay_id.length - 3)
-		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id), "out_trade_no" -> toJson(trade_no)))
+		Json.toJson(Map("status" -> toJson("ok"), "package" -> toJson("prepay_id=" + prepay_id), 
+		    "out_trade_no" -> toJson(trade_no), "pay_sign" -> toJson(str_md5),
+		    "timespan" -> toJson(timespan)))
 	}
 	
 	def pushQueryContent = Action (request => requestArgs(request)(this.pushQueryContentImpl))
