@@ -100,6 +100,7 @@ object JieTengService extends Controller {
 
 	def createPrepayID = Action (request => requestArgs(request)(this.createPrepayIDImpl))
 	def createPrepayIDImpl(data : JsValue) : JsValue = {
+		println(data)
 		val openid = (data \ "openid").asOpt[String].get
 		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
 		/**
