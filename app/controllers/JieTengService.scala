@@ -51,7 +51,6 @@ object JieTengService extends Controller {
 	val weixin_jsapi = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token="
   
 	def consultation(openid: String) = Action {
-		println(openid)
 		val data = Json.parse(Source.fromFile("public/data/abc-min.json").bufferedReader.readLine)
 		var lst = (data \ "data").asOpt[List[JsValue]].get
 		var indexing = (data \ "indexing").asOpt[List[JsValue]].get
@@ -79,28 +78,6 @@ object JieTengService extends Controller {
         crypt.reset();
         crypt.update(str_js.getBytes("UTF-8"));
 		val signiture = getFormattedText(crypt.digest());
-		println(signiture)
-	 
-		/**
-		 * get uni order, prepay_id
-		 */
-//		val trade_no = module.sercurity.Sercurity.md5Hash(openid + timespan)
-//		
-//		val str_pay = "appid=" + app_id + "&body=" + pay_body + "&mch_id=" + mch_id + "&nonce_str=" + pay_noncestr + "&notify_url="+ pay_notify + "&openid=" + openid + "&out_trade_no=" + trade_no + "&spbill_create_ip=127.0.0.1&total_fee=1&trade_type=JSAPI&key=" + mch_key
-//		val str_md5 = module.sercurity.Sercurity.md5Hash(str_pay).toUpperCase
-//		val valxml = """<xml><appid>%s</appid><body><![CDATA[%s]]></body><mch_id>%s</mch_id><nonce_str>%s</nonce_str><notify_url>%s</notify_url><openid>%s</openid><out_trade_no>%s</out_trade_no><spbill_create_ip>127.0.0.1</spbill_create_ip><total_fee>1</total_fee><trade_type>JSAPI</trade_type><sign><![CDATA[%s]]></sign></xml>"""
-//		  			.format(app_id, pay_body, mch_id, pay_noncestr, pay_notify, openid, trade_no, str_md5)
-//		
-//		val order_url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
-//		val result = ((HTTP(order_url)).post(valxml.toString))
-//		println(result)
-//		
-//		val tag = "return_code"
-//		var return_code = result.substring(result.indexOf(tag) + tag.length + 1, result.indexOf("</" + tag)) 
-//		println(return_code)
-//		if (return_code.startsWith("<![CDATA[") && return_code.endsWith("]]>")) 
-//			return_code = return_code.substring(9, return_code.length - 3)
-//		println(return_code)
 	  
 		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(app_id)(signiture)(timespan)(null)(openid))
 	}
