@@ -95,7 +95,7 @@ object JieTengService extends Controller {
 	}
 
 	def progress(openid: String) = Action {
-		val status = ((from db() where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status"))).head
+		val status = ((from db() where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status").get)).head
 		Ok(views.html.progress("progress")(status))
 	}
 
@@ -155,11 +155,6 @@ object JieTengService extends Controller {
 		_data_connection.getCollection("queries") += builder.result
 		
 		Json.toJson(Map("status" -> toJson("ok"), "message" -> toJson("发布成功，答主会在三天之内给你答复")))
-	}
-	
-	def queryProgress = Action (request => requestArgs(request)(this.queryProgressImpl))
-	def queryProgressImpl(data : JsValue) : JsValue = {
-		null
 	}
 	
 	/**
