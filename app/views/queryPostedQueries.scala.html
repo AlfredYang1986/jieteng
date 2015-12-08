@@ -10,10 +10,14 @@
 
 	<h2>未回答的问题</h2>
 	<div>
-		@for(iter <- data) {
+		@for((iter, index) <- data.zipWithIndex) {
 			<ul>
-				<li></li>
+				<li><h3>用户 @index</h3></li>
+				<li>用户昵称: @{(iter \ "name").asOpt[String].get}</li>
+				<li>用户邮箱: @{(iter \ "email").asOpt[String].get}</li>
+				<li>用户问题: @{(iter \ "content").asOpt[String].get}</li>
 			</ul>
+			<br/>
 		}
 
 	</div>
