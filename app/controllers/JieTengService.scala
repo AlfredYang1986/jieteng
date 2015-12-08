@@ -23,9 +23,9 @@ import module.sercurity
  */
 sealed abstract class status(val con : Int, val dis : String)
 object queryStatus{
-  case object justUpload extends status(0, "Just Uploaded")
-  case object readed extends status(1, "readed")
-  case object replied extends status(2, "replied")
+  case object justUpload extends status(0, "已送达")
+  case object readed extends status(1, "答主正在答复")
+  case object replied extends status(2, "答主已回复")
 }
 
 
@@ -94,8 +94,9 @@ object JieTengService extends Controller {
 		return sb.toString
 	}
 
-	def progress = Action {
-		Ok(views.html.progress("progress"))
+	def progress(openid: String) = Action {
+		val status = ((from db() where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status"))).head
+		Ok(views.html.progress("progress")(status))
 	}
 
 	def createPrepayID = Action (request => requestArgs(request)(this.createPrepayIDImpl))
@@ -176,5 +177,22 @@ object JieTengService extends Controller {
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
 		Redirect("http://www.jietengculture.com/consultation/" + openid)
+	}
+	
+	/**
+	 * wechat oauth with query progress
+	 */
+	def queryProgress = Action {
+		val redirect_uri = "http://www.jietengculture.com/queryProgressWithWechatOpenID"
+		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
+		
+		Redirect(authCodeUrl)
+	}
+	
+	def queryProgressWithWechatOpenID(code: String, status: String) = Action {
+		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
+		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
+		
+		Redirect("http://www.jietengculture.com/progress/" + openid)
 	}
 }

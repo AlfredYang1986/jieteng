@@ -6,14 +6,18 @@
 GET     /consultation/:openid                  				controllers.JieTengService.consultation(openid)
 GET     /serviceProtocol            						controllers.JieTengService.serviceProtocol
 GET     /wxpay/consultingPage								controllers.JieTengService.consultingPage(work_type, name, openid)
-GET     /progress											controllers.JieTengService.progress
+GET     /progress/:openid									controllers.JieTengService.progress(openid)
 
 POST	/pushQueryContent									controllers.JieTengService.pushQueryContent
 POST	/createPrepayID										controllers.JieTengService.createPrepayID
 
-# Open ID
+# Open ID for push query
 GET		/													controllers.JieTengService.queryWechatAuthCode
 GET		/queryWechatOpenID									controllers.JieTengService.queryWechatOpenID(code, status="")
+
+# Open ID for query progross
+GET		/queryProgress										controllers.JieTengService.queryProgress
+GET		/queryProgressWithWechatOpenID						controllers.JieTengService.queryProgressWithWechatOpenID(code, status="")
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

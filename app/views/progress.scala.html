@@ -1,4 +1,4 @@
-@(message: String)
+@(message: String)(status: Int)
 
 @main(message) {
 	
@@ -26,7 +26,15 @@
 				<b class="progress-title">咨询进度显示</b>	
 			</div>
 			<div class="col-xs-4 col-md-4">
+			@if(status == 0) {
 				<p class="progress-text">已收到</p>	
+			} 
+			@if(status == 1){
+				<p class="progress-text">正在回复</p>	
+			}
+			@if(status == 2) {
+				<p class="progress-text">已回复</p>	
+			}
 			</div>
 		</div>
 		
