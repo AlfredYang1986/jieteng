@@ -88,6 +88,10 @@
 		function createPrepayID() {
 			var query_object = new Object();
 			query_object['openid'] = '@openid';
+			if ('@work_name' == '自定义咨询')
+				query_object['fee'] = 10000;
+			else 
+				query_object['fee'] = 8000;
 			
 			$.ajax({
 		        //url: 'http://192.168.1.101:9000/createPrepayID',

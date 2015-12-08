@@ -95,22 +95,24 @@ object JieTengService extends Controller {
 	}
 
 	def progress = Action {
-		Ok(views.html.progress("page 7"))
+		Ok(views.html.progress("progress"))
 	}
 
 	def createPrepayID = Action (request => requestArgs(request)(this.createPrepayIDImpl))
 	def createPrepayIDImpl(data : JsValue) : JsValue = {
 		val openid = (data \ "openid").asOpt[String].get
+		var fee: Int = 0
+		(data \ "fee").asOpt[Int].map(x => fee = x).getOrElse(fee = 8000)
 		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
 		/**
 		 * get uni order, prepay_id
 		 */
 		val trade_no = module.sercurity.Sercurity.md5Hash(openid + timespan)
 		
-		val str_pay = "appid=" + app_id + "&body=" + pay_body + "&mch_id=" + mch_id + "&nonce_str=" + pay_noncestr + "&notify_url="+ pay_notify + "&openid=" + openid + "&out_trade_no=" + trade_no + "&spbill_create_ip=127.0.0.1&total_fee=1&trade_type=JSAPI&key=" + mch_key
+		val str_pay = "appid=" + app_id + "&body=" + pay_body + "&mch_id=" + mch_id + "&nonce_str=" + pay_noncestr + "&notify_url="+ pay_notify + "&openid=" + openid + "&out_trade_no=" + trade_no + "&spbill_create_ip=127.0.0.1&total_fee=" + fee + "&trade_type=JSAPI&key=" + mch_key
 		val str_md5 = module.sercurity.Sercurity.md5Hash(str_pay).toUpperCase
-		val valxml = """<xml><appid>%s</appid><body><![CDATA[%s]]></body><mch_id>%s</mch_id><nonce_str>%s</nonce_str><notify_url>%s</notify_url><openid>%s</openid><out_trade_no>%s</out_trade_no><spbill_create_ip>127.0.0.1</spbill_create_ip><total_fee>1</total_fee><trade_type>JSAPI</trade_type><sign><![CDATA[%s]]></sign></xml>"""
-		  			.format(app_id, pay_body, mch_id, pay_noncestr, pay_notify, openid, trade_no, str_md5)
+		val valxml = """<xml><appid>%s</appid><body><![CDATA[%s]]></body><mch_id>%s</mch_id><nonce_str>%s</nonce_str><notify_url>%s</notify_url><openid>%s</openid><out_trade_no>%s</out_trade_no><spbill_create_ip>127.0.0.1</spbill_create_ip><total_fee>%d</total_fee><trade_type>JSAPI</trade_type><sign><![CDATA[%s]]></sign></xml>"""
+		  			.format(app_id, pay_body, mch_id, pay_noncestr, pay_notify, openid, trade_no, fee, str_md5)
 		
 		val order_url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
 		val result = ((HTTP(order_url)).post(valxml.toString))
@@ -167,7 +169,7 @@ object JieTengService extends Controller {
 		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
 		
 		Redirect(authCodeUrl)
-	 }
+	}
 	
 	def queryWechatOpenID(code: String, status: String) = Action {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
