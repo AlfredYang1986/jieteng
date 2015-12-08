@@ -95,7 +95,7 @@ object JieTengService extends Controller {
 	}
 
 	def progress(openid: String) = Action {
-		val status = ((from db() where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status").get)).head
+		val status = ((from db() in "queries" where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status").get)).head
 		Ok(views.html.progress("progress")(status))
 	}
 
