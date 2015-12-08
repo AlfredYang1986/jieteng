@@ -1,0 +1,26 @@
+@(message: String)(data: List[play.api.libs.json.JsValue])
+
+@main(message) {
+	
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+} {
+
+	<h2>未回答的问题</h2>
+	<div>
+		@for(iter <- data) {
+			<ul>
+				<li></li>
+			</ul>
+		}
+
+	</div>
+} {
+
+	<script type="text/javascript">
+
+	</script>
+}
+

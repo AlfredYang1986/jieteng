@@ -160,6 +160,23 @@ object JieTengService extends Controller {
 		Json.toJson(Map("status" -> toJson("ok"), "message" -> toJson("发布成功，答主会在三天之内给你答复")))
 	}
 	
+
+	/**
+	 * Dazhu answer page
+	 */
+	def queryPostedQueries = Action {
+		Ok(views.html.queryPostedQueries("回答咨询")(
+		   (from db() in "queries" where ("status" -> 0) select { x => 
+			x += "status" -> 2.asInstanceOf[AnyRef]
+			val td = x.getAs[String]("trade_no").get
+			_data_connection.getCollection("queries").update(DBObject("trade_no" -> td), x)
+			
+			toJson(Map("name" -> toJson(x.getAs[String]("name").get), 
+			    "email" -> toJson(x.getAs[String]("email").get), 
+			    "content" -> toJson(x.getAs[String]("content").get)))
+		   })))
+	}
+	
 	/**
 	 * wechat oauth
 	 */
