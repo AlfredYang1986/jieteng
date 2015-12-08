@@ -19,8 +19,15 @@
 }
 
 .service-protocol-content {
-	width: 100%;
-	height: 50%;
+	width: 60%;
+	height: 70%;
+	
+	font-size: 18pt;
+	margin: 5% 20%;
+	
+	overflow:auto;
+	border: none;
+    background-color:transparent;  
 }
 
 .service-protocol-bottom-btn {

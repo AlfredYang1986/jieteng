@@ -15,6 +15,8 @@ import java.security.MessageDigest
 import java.net.URLEncoder
 import scala.xml.XML
 import module.sercurity
+import scala.io.Source
+import java.io._
 
 /**
  * for con = 0: just upload
@@ -62,11 +64,12 @@ object JieTengService extends Controller {
 		  rel = rel :+ a
 		  lst = b
 		}
-		Ok(views.html.consultation("Jie Teng She")(rel)(indexing)(openid))
+		Ok(views.html.consultation("结藤社")(rel)(indexing)(openid))
 	}
   
 	def serviceProtocol = Action {
-		Ok(views.html.serviceProtocol("page 2"))
+		val data = Source.fromFile("public/data/protocol.txt").getLines.toList.map(x => x + "\n").flatMap(x => x).mkString
+		Ok(views.html.serviceProtocol("用户协议")(data))
 	}
   
 	def consultingPage(work_type: String, name: String, openid: String) = Action {
@@ -79,7 +82,7 @@ object JieTengService extends Controller {
         crypt.update(str_js.getBytes("UTF-8"));
 		val signiture = getFormattedText(crypt.digest());
 	  
-		Ok(views.html.consultingPage("Jie Teng She")(work_type)(name)(app_id)(signiture)(timespan)(null)(openid))
+		Ok(views.html.consultingPage("结藤社")(work_type)(name)(app_id)(signiture)(timespan)(null)(openid))
 	}
 	
 	private def getFormattedText(bytes : Array[Byte]) : String = {
@@ -95,8 +98,8 @@ object JieTengService extends Controller {
 	}
 
 	def progress(openid: String) = Action {
-		val status = ((from db() in "queries" where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status").get)).head
-		Ok(views.html.progress("progress")(status))
+		val status = ((from db() in "queries" where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status").map(y => y).getOrElse(-1))).head
+		Ok(views.html.progress("咨询进度查询")(status))
 	}
 
 	def createPrepayID = Action (request => requestArgs(request)(this.createPrepayIDImpl))
