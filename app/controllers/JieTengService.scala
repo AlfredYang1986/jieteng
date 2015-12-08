@@ -174,7 +174,7 @@ object JieTengService extends Controller {
 			toJson(Map("name" -> toJson(x.getAs[String]("name").get), 
 			    "email" -> toJson(x.getAs[String]("email").get), 
 			    "content" -> toJson(x.getAs[String]("content").get)))
-		   })))
+		   }).toList))
 	}
 	
 	/**
