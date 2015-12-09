@@ -22,6 +22,7 @@
 		</div>
 		
 		<div class="row progress-title-text-margin-top">
+			@if(status >= 0) {
 			<div class="col-xs-7 col-md-8 col-xs-offset-1" style="text-align: center">
 				<b class="progress-title">咨询进度显示</b>	
 			</div>
@@ -36,6 +37,11 @@
 				<p class="progress-text">已回复</p>	
 			}
 			</div>
+			} else {
+				<div class="col-xs-9 col-md-9 col-xs-offset-1" style="text-align: center">
+					<b class="progress-text">此账号没有相关咨询</b>	
+				</div>
+			}
 		</div>
 		
 		<div class="row progress-footer-margin-top">
