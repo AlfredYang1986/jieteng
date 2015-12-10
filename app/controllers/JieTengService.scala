@@ -166,9 +166,9 @@ object JieTengService extends Controller {
 	/**
 	 * Dazhu answer page
 	 */
-	def queryPostedQueries(status: String) = Action {
+	def queryPostedQueries(status: String = "0") = Action {
 		val query = if (status.toInt < 0) (from db() in "queries") 
-					else (from db() in "queries" where ("status" -> status))
+					else (from db() in "queries" where ("status" -> status.toInt))
 	  
 		Ok(views.html.queryPostedQueries("回答咨询")(
 		   (query select { x: MongoDBObject => 
@@ -207,7 +207,7 @@ object JieTengService extends Controller {
 		Redirect(authCodeUrl)
 	}
 	
-	def queryWechatOpenID(code: String, status: String) = Action {
+	def queryWechatOpenID(code: String, status: String = "") = Action {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
@@ -224,7 +224,7 @@ object JieTengService extends Controller {
 		Redirect(authCodeUrl)
 	}
 	
-	def queryProgressWithWechatOpenID(code: String, status: String) = Action {
+	def queryProgressWithWechatOpenID(code: String, status: String = "") = Action {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		

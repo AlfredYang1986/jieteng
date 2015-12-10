@@ -13,14 +13,14 @@ POST	/createPrepayID										controllers.JieTengService.createPrepayID
 
 # Open ID for push query
 GET		/													controllers.JieTengService.queryWechatAuthCode
-GET		/queryWechatOpenID									controllers.JieTengService.queryWechatOpenID(code, status="")
+GET		/queryWechatOpenID									controllers.JieTengService.queryWechatOpenID(code, status)
 
 # Open ID for query progross
 GET		/queryProgress										controllers.JieTengService.queryProgress
-GET		/queryProgressWithWechatOpenID						controllers.JieTengService.queryProgressWithWechatOpenID(code, status="")
+GET		/queryProgressWithWechatOpenID						controllers.JieTengService.queryProgressWithWechatOpenID(code, status)
 
 # Dazhu answer page
-GET		/queryPostedQueries/:status							controllers.JieTengService.queryPostedQueries(status="0")
+GET		/queryPostedQueries/:status							controllers.JieTengService.queryPostedQueries(status)
 POST	/changePostedQueryStatusToReplay					controllers.JieTengService.changePostedQueryStatusToReplay
 
 # Map static resources from the /public folder to the /assets URL path
