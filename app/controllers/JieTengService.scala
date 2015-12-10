@@ -166,8 +166,8 @@ object JieTengService extends Controller {
 	/**
 	 * Dazhu answer page
 	 */
-	def queryPostedQueries(status: Integer) = Action {
-		val query = if (status < 0) (from db() in "queries") 
+	def queryPostedQueries(status: String) = Action {
+		val query = if (status.toInt < 0) (from db() in "queries") 
 					else (from db() in "queries" where ("status" -> status))
 	  
 		Ok(views.html.queryPostedQueries("回答咨询")(
