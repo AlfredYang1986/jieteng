@@ -31,8 +31,8 @@
 
 		<table class="col-10 col-offset-1 row-offset-1"  border="0" cellspacing="0" cellpadding="2" bordercolor="#009900" >
 			<tr>
-				<td colspan="50%" style="float: left"><button type="button" class="btn btn-primary btn-setting"> 同意 </button></td>
-				<td colspan="50%" style="float: right"><button type="button" class="btn btn-primary btn-setting">不同意</button></td>
+				<td colspan="50%" style="float: left"><button type="button" id="agree-setting" class="btn btn-primary btn-setting"> 同意 </button></td>
+				<td colspan="50%" style="float: right"><button type="button" id="disagree-setting" class="btn btn-primary btn-setting">不同意</button></td>
 			</tr>
 		</table>	
 	</div>
@@ -51,6 +51,16 @@
 		$(window).resize(function() {
 			setup();
 		});
+
+		$("#agree-setting").bind(touchEvents.touchstart, function (event) {		
+			location.href = "http://www.jietengculture.com";			
+		});
+		
+		$("#disagree-setting").click(function(){
+			alert("需要同意协议才能进行咨询");
+		});
+
+		
 	</script>
 }
 
