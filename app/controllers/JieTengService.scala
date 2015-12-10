@@ -64,7 +64,7 @@ object JieTengService extends Controller {
 		  rel = rel :+ a
 		  lst = b
 		}
-		Ok(views.html.consultation("结藤社")(rel)(indexing)(openid))
+		Ok(views.html.consultation("结藤社私密咨询")(rel)(indexing)(openid))
 	}
   
 	def serviceProtocol = Action {
@@ -82,7 +82,7 @@ object JieTengService extends Controller {
         crypt.update(str_js.getBytes("UTF-8"));
 		val signiture = getFormattedText(crypt.digest());
 	  
-		Ok(views.html.consultingPage("结藤社")(work_type)(name)(app_id)(signiture)(timespan)(null)(openid))
+		Ok(views.html.consultingPage("结藤社")(work_type)(name)(app_id)(signiture)(timespan)(openid))
 	}
 	
 	private def getFormattedText(bytes : Array[Byte]) : String = {
@@ -166,17 +166,35 @@ object JieTengService extends Controller {
 	/**
 	 * Dazhu answer page
 	 */
-	def queryPostedQueries = Action {
+	def queryPostedQueries(status: Integer) = Action {
+		val query = if (status < 0) (from db() in "queries") 
+					else (from db() in "queries" where ("status" -> status))
+	  
 		Ok(views.html.queryPostedQueries("回答咨询")(
-		   (from db() in "queries" where ("status" -> 0) select { x => 
-			x += "status" -> 2.asInstanceOf[AnyRef]
-			val td = x.getAs[String]("trade_no").get
-			_data_connection.getCollection("queries").update(DBObject("trade_no" -> td), x)
-			
+		   (query select { x: MongoDBObject => 
+
+		    val str_status = x.getAs[Int]("status").get match {
+		      case 0 => "未回复"
+		      case 1 => "未回复"
+		      case 2 => "已回复"
+		    } 
+		    
 			toJson(Map("name" -> toJson(x.getAs[String]("name").get), 
 			    "email" -> toJson(x.getAs[String]("email").get), 
-			    "content" -> toJson(x.getAs[String]("content").get)))
+			    "content" -> toJson(x.getAs[String]("content").get),
+			    "trade_no" -> toJson(x.getAs[String]("trade_no").get),
+			    "status" -> toJson(str_status)))
 		   }).toList))
+	}
+	
+	def changePostedQueryStatusToReplay = Action (request => requestArgs(request)(this.changePostedQueryStatusToReplayImpl))
+	def changePostedQueryStatusToReplayImpl(data : JsValue) : JsValue = {
+		val trade_no = (data \ "trade_no").asOpt[String].get
+		from db() in "queries" where ("trade_no" -> trade_no) select { x => 
+			x += "status" -> 2.asInstanceOf[AnyRef]
+			_data_connection.getCollection("queries").update(DBObject("trade_no" -> trade_no), x)	  
+		}
+		Json.toJson(Map("status" -> toJson("ok"), "message" -> toJson("已成功答复，并提交数据库")))
 	}
 	
 	/**

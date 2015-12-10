@@ -16,6 +16,8 @@
 				<li>用户昵称: @{(iter \ "name").asOpt[String].get}</li>
 				<li>用户邮箱: @{(iter \ "email").asOpt[String].get}</li>
 				<li>用户问题: @{(iter \ "content").asOpt[String].get}</li>
+				<li class='@index'>问题状态: @{(iter \ "status").asOpt[String].get}</li>
+				<li><button class='commit-btn' data-index=@index data-trade-no='@{(iter \ "trade_no").asOpt[String].get}'></button></li>
 			</ul>
 			<br/>
 		}
@@ -24,7 +26,28 @@
 } {
 
 	<script type="text/javascript">
-
+		$('.commit-btn').click(function(){
+			var index = $(this).data('index');
+			var trade_no = $(this).data('trade-no');
+			var query_object = new Object();
+			query_object['trade_no'] = trade_no;
+			
+			$.ajax({
+				url: 'http://www.jietengculture.com/changePostedQueryStatusToReplay',
+		        type: 'POST',
+		        dataType: 'json',
+		        contentType: 'application/json, charset=utf-8',
+		        data: JSON.stringify(query_object),
+		        cache: false,
+		        success: function (data) {
+					alert(data.message);
+					$('.' + index).val("问题状态: 已回复")
+		        },
+		        error: function (xhr, status, error) {
+			        alert("get prepay id error");
+		        }
+		    });
+		});
 	</script>
 }
 
