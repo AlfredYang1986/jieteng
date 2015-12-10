@@ -17,7 +17,7 @@
 				<li>用户邮箱: @{(iter \ "email").asOpt[String].get}</li>
 				<li>用户问题: @{(iter \ "content").asOpt[String].get}</li>
 				<li class='@index'>问题状态: @{(iter \ "status").asOpt[String].get}</li>
-				<li><button class='commit-btn' data-index=@index data-trade-no='@{(iter \ "trade_no").asOpt[String].get}'></button></li>
+				<li><button class='commit-btn' data-index=@index data-trade-no='@{(iter \ "trade_no").asOpt[String].get}'>提交</button></li>
 			</ul>
 			<br/>
 		}
@@ -41,7 +41,7 @@
 		        cache: false,
 		        success: function (data) {
 					alert(data.message);
-					$('.' + index).val("问题状态: 已回复")
+					$('.' + index).html("问题状态: 已回复")
 		        },
 		        error: function (xhr, status, error) {
 			        alert("get prepay id error");

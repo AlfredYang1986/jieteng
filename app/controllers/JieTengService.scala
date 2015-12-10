@@ -173,10 +173,6 @@ object JieTengService extends Controller {
 		Ok(views.html.queryPostedQueries("回答咨询")(
 		   (query select { x: MongoDBObject => 
 
-		    println(x)
-		    println(x.getAs[Number]("status"))
-		    println(x.getAs[Number]("status").get.intValue)
-		    
 		    val str_status = x.getAs[Number]("status").get.intValue match {
 		      case 0 => "未回复"
 		      case 1 => "未回复"
