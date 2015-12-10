@@ -20,7 +20,7 @@ GET		/queryProgress										controllers.JieTengService.queryProgress
 GET		/queryProgressWithWechatOpenID						controllers.JieTengService.queryProgressWithWechatOpenID(code, status="")
 
 # Dazhu answer page
-GET		/queryPostedQueries/:status							controllers.JieTengService.queryPostedQueries(status="0")
+GET		/queryPostedQueries									controllers.JieTengService.queryPostedQueries(status="0")
 POST	/changePostedQueryStatusToReplay					controllers.JieTengService.changePostedQueryStatusToReplay
 
 # Map static resources from the /public folder to the /assets URL path
