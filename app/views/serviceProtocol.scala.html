@@ -39,6 +39,23 @@
 } {
 
 	<script type="text/javascript">
+			var touchEvents = {
+	        touchstart: "touchstart",
+	        touchmove: "touchmove",
+	        touchend: "touchend",
+
+	        /**
+	         * 判断是否pc设备，若是pc，需要更改touch事件为鼠标事件，否则默认触摸事件
+	         */
+	        initTouchEvents: function () {
+	            if (isPC()) {
+	                this.touchstart = "mousedown";
+	                this.touchmove = "mousemove";
+	                this.touchend = "mouseup";
+	            }
+	        }
+	    };
+	
 		function setup() {
 			var plst = new pages();
 			plst.calledWhenResize();
@@ -47,7 +64,7 @@
 		$(function(){
 			setup();
 		});
-	
+		
 		$(window).resize(function() {
 			setup();
 		});
@@ -56,7 +73,7 @@
 			location.href = "http://www.jietengculture.com";			
 		});
 		
-		$("#disagree-setting").click(function(){
+		$("#disagree-setting").bind(touchEvents.touchstart, function (event){
 			alert("需要同意协议才能进行咨询");
 		});
 
