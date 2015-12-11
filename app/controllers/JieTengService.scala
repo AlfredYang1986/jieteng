@@ -98,7 +98,7 @@ object JieTengService extends Controller {
 	}
 
 	def progress(openid: String) = Action {
-		Ok(views.html.progress("咨询进度查询")(((from db() in "queries" where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Int]("status").get)).toList match {
+		Ok(views.html.progress("咨询进度查询")(((from db() in "queries" where ("openid" -> openid)).selectTop(1)("date")(x => x.getAs[Number]("status").get.intValue)).toList match {
 		  case head :: Nil => head
 		  case _ => -1
 		}))
