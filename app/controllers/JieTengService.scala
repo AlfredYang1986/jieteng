@@ -202,8 +202,8 @@ object JieTengService extends Controller {
 	 * wechat oauth
 	 */
 	def queryWechatAuthCode = Action {
-//		val redirect_uri = "http://www.turismochino.net/queryWechatOpenID"
-		val redirect_uri = "http://www.jietengculture.com/queryWechatOpenID"
+		val redirect_uri = "http://www.turismochino.net/queryWechatOpenID"
+//		val redirect_uri = "http://www.jietengculture.com/queryWechatOpenID"
 		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
 		
 		Redirect(authCodeUrl)
@@ -213,16 +213,16 @@ object JieTengService extends Controller {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
-		Redirect("http://www.jietengculture.com/consultation/" + openid)
-//		Redirect("http://www.turismochino.net/consultation/" + openid)
+//		Redirect("http://www.jietengculture.com/consultation/" + openid)
+		Redirect("http://www.turismochino.net/consultation/" + openid)
 	}
 	
 	/**
 	 * wechat oauth with query progress
 	 */
 	def queryProgress = Action {
-//		val redirect_uri = "http://www.turismochino.net/queryProgressWithWechatOpenID"
-		val redirect_uri = "http://www.jietengculture.com/queryProgressWithWechatOpenID"
+		val redirect_uri = "http://www.turismochino.net/queryProgressWithWechatOpenID"
+//		val redirect_uri = "http://www.jietengculture.com/queryProgressWithWechatOpenID"
 		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
 		
 		Redirect(authCodeUrl)
@@ -232,7 +232,7 @@ object JieTengService extends Controller {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
-		Redirect("http://www.jietengculture.com/progress/" + openid)
-//		Redirect("http://www.turismochino.net/progress/" + openid)
+//		Redirect("http://www.jietengculture.com/progress/" + openid)
+		Redirect("http://www.turismochino.net/progress/" + openid)
 	}
 }
