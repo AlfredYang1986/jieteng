@@ -94,9 +94,7 @@
 				query_object['fee'] = 8000;
 			
 			$.ajax({
-		        //url: 'http://192.168.1.101:9000/createPrepayID',
 				url: 'http://www.turismochino.net/createPrepayID',
-				//url: 'http://www.jietengculture.com/createPrepayID',
 		        type: 'POST',
 		        dataType: 'json',
 		        contentType: 'application/json, charset=utf-8',
@@ -135,9 +133,7 @@
 			query_object['content'] = $('#query-content').val();
 			
 			$.ajax({
-		        //url: 'http://192.168.1.101:9000/pushQueryContent',
 				url: "http://www.turismochino.net/pushQueryContent",
-				//url: "http://www.jietengculture.com/pushQueryContent",
 		        type: 'POST',
 		        dataType: 'json',
 		        contentType: 'application/json, charset=utf-8',

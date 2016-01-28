@@ -76,8 +76,7 @@ object JieTengService extends Controller {
 		val wechat_token = ((HTTP(weixin_http)).get(null) \ "access_token").asOpt[String].get
 		val wechat_jsapi = ((HTTP(weixin_jsapi + wechat_token)).get(null) \ "ticket").asOpt[String].get
 		val timespan = java.lang.Long.toString(System.currentTimeMillis() / 1000)// (new Date().getTime / 1000).toString
-		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.jietengculture.com/wxpay/consultingPage?work_type=" + URLEncoder.encode(work_type) + "&name=" + URLEncoder.encode(name) + "&openid=" + openid;			
-//		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.turismochino.net/wxpay/consultingPage?work_type=" + URLEncoder.encode(work_type) + "&name=" + URLEncoder.encode(name) + "&openid=" + openid;			
+		val str_js = "jsapi_ticket=" + wechat_jsapi + "&noncestr=Wm3WZYTPz0wzccnW&timestamp=" + timespan + "&url=http://www.turismochino.net/wxpay/consultingPage?work_type=" + URLEncoder.encode(work_type) + "&name=" + URLEncoder.encode(name) + "&openid=" + openid;			
 		val crypt = MessageDigest.getInstance("SHA-1");
         crypt.reset();
         crypt.update(str_js.getBytes("UTF-8"));
@@ -203,7 +202,6 @@ object JieTengService extends Controller {
 	 */
 	def queryWechatAuthCode = Action {
 		val redirect_uri = "http://www.turismochino.net/queryWechatOpenID"
-//		val redirect_uri = "http://www.jietengculture.com/queryWechatOpenID"
 		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
 		
 		Redirect(authCodeUrl)
@@ -213,7 +211,6 @@ object JieTengService extends Controller {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
-//		Redirect("http://www.jietengculture.com/consultation/" + openid)
 		Redirect("http://www.turismochino.net/consultation/" + openid)
 	}
 	
@@ -222,7 +219,6 @@ object JieTengService extends Controller {
 	 */
 	def queryProgress = Action {
 		val redirect_uri = "http://www.turismochino.net/queryProgressWithWechatOpenID"
-//		val redirect_uri = "http://www.jietengculture.com/queryProgressWithWechatOpenID"
 		val authCodeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + URLEncoder.encode(app_id) + "&redirect_uri=" + URLEncoder.encode(redirect_uri) + "&response_type=code&scope=snsapi_base"
 		
 		Redirect(authCodeUrl)
@@ -232,7 +228,6 @@ object JieTengService extends Controller {
 		val url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + app_id + "&secret=" + app_secret + "&code=" + code + "&grant_type=authorization_code"
 		val openid = ((HTTP(url)).get(null) \ "openid").asOpt[String].get
 		
-//		Redirect("http://www.jietengculture.com/progress/" + openid)
 		Redirect("http://www.turismochino.net/progress/" + openid)
 	}
 }
